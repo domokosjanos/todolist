@@ -49,13 +49,14 @@ public partial class Csoportkeszit : ContentPage
             Csoportkeszito = viewmodelFHO.Aktfelhasznalo.Fnev, // Ha szükséges, itt állítsd be a felhasználót
             Letszam = 1 // Kezdeti létszám, ezt késõbb módosíthatod
         };
+        /*
         var ujTag = new Tag
         {
             FHO_id = FHO_id,
             CSPT_nev = ,
             Jogosultsag = true
         }
-
+        */
         // Aszinkron kapcsolat létrehozása és adatbázisba mentés
         var connection =  DBcsatlakozas.CreateConnection();
 
@@ -67,7 +68,7 @@ public partial class Csoportkeszit : ContentPage
 
         await connection.CreateTableAsync<Tag>();
 
-        await connection.InsertAsync(ujTag);
+        //await connection.InsertAsync(ujTag);
 
         // Navigálj a Csoportok oldalra
         await Navigation.PushAsync(new Csoportok());
