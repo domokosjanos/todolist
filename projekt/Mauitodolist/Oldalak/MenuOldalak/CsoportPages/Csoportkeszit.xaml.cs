@@ -53,7 +53,7 @@ public partial class Csoportkeszit : ContentPage
         var ujTag = new Tag
         {
             FHO_id = FHO_id,
-            CSPT_nev = ,
+            CSPT_nev = viewmodelFHO.Aktfelhasznalo,
             Jogosultsag = true
         }
         */
@@ -66,12 +66,16 @@ public partial class Csoportkeszit : ContentPage
         // Új csoport mentése
         await connection.InsertAsync(ujCsoport);
 
+        
+
         await connection.CreateTableAsync<Tag>();
 
         //await connection.InsertAsync(ujTag);
 
         // Navigálj a Csoportok oldalra
         await Navigation.PushAsync(new Csoportok());
+
+        await connection.CloseAsync();
     }
 
     private void Button_Clicked(object sender, EventArgs e)
