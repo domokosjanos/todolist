@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiToDoList.Oldalak.MenuPages.FeladatPages.Feladatok"
+             Title="Feladatok" BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False">
+
+    <Border
+        StrokeShape="RoundRectangle 40,40,40,40"
+        Background="White"
+        Margin="10,10,10,10">
+        
+        <Grid
+            RowDefinitions=".1*,.1*,.1*,.6*,.1*"
+            ColumnDefinitions=".1*,.1*,.1*,.1*">
+            
+            <Button 
+                x:Name="fooldal"
+                ImageSource="fooldalkep.png"
+                BackgroundColor="{StaticResource pumpkinorange}"
+                Margin="2"
+                Padding="2"
+                Clicked="Buttonfooldal_Clicked"
+             />
+            
+            <Button 
+                x:Name="Ujfeladat"
+                Grid.Column="1"
+                ImageSource="feladatkesz2.png"
+                BackgroundColor="{StaticResource pumpkinorange}"
+                Margin="2"
+                Padding="2"
+                Clicked="Ujfeladat_Clicked"
+            />
+            
+            <Button 
+                x:Name="csoport"
+                Grid.Column="2"
+                ImageSource="csoport5.png"
+                BackgroundColor="{StaticResource pumpkinorange}"
+                Margin="2"
+                Padding="2"
+                Clicked="csoport_Clicked"
+            />
+            
+            <Button 
+                x:Name="profil"
+                Grid.Column="3"
+                ImageSource="profil2_2.png"
+                BackgroundColor="{StaticResource pumpkinorange}"
+                Margin="2"
+                Padding="6"
+                Clicked="profil_Clicked"
+            />
+
+            <Label 
+                Text="Feladat készítés"
+                Grid.ColumnSpan="4"
+                Grid.Row="1"
+                FontSize="35"
+                FontFamily="NexaHeavy"
+                Margin="2, 2, 2, 15"
+                HorizontalOptions="Center" 
+                VerticalOptions="CenterAndExpand"
+            />
+            
+            <Entry 
+                WidthRequest="250"
+                HeightRequest="40"
+                Grid.ColumnSpan="4"
+                FontSize="15"
+                FontFamily="NexaLight"
+                Grid.Row="2"
+                Margin="10"
+                Placeholder="Feladat címe:"
+                BackgroundColor="{StaticResource halvanyszurke}"
+                PlaceholderColor="Grey"
+            />
+
+            <Editor
+                x:Name="feladatleiras"
+                WidthRequest="250"
+                HeightRequest="250"
+                Grid.ColumnSpan="4"
+                Placeholder="Feladat leírás:"
+                FontSize="15"
+                Grid.Row="3"
+                VerticalTextAlignment="Start"
+                BackgroundColor="{StaticResource halvanyszurke}"
+                PlaceholderColor="Grey"                  
+                AutoSize="TextChanges" 
+            />
+
+            <Button
+                x:Name="Keszit"
+                Grid.Row="4"
+                Grid.ColumnSpan="4"
+                BackgroundColor="{StaticResource pumpkinorange}"
+                WidthRequest="200"
+                TextColor="Black"
+                Text="Készítés"
+                FontSize="20"
+                Margin="10,10,10,5"
+            />
+
+        </Grid>
+    </Border>
+</ContentPage>

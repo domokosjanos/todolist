@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiToDoList.Oldalak.MenuPages.CsoportPages.Csoportok"
+             Title="Csoportok" BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False">
+
+    <Border StrokeShape="RoundRectangle 40,40,40,40" Background="White" Margin="10,10,10,10">
+        <Grid RowDefinitions=".1*,.8*,.1*" ColumnDefinitions=".1*,.1*,.1*,.1*">
+
+            <!-- Navigációs gombok -->
+            <Button ImageSource="fooldalkep.png"
+                    BackgroundColor="{StaticResource pumpkinorange}"
+                    Margin="2"
+                    Padding="2"
+                    Clicked="Buttonfooldal_Clicked"/>
+
+            <Button x:Name="feladataim"
+                    Grid.Column="1"
+                    ImageSource="feladatkesz2.png"
+                    BackgroundColor="{StaticResource pumpkinorange}"
+                    Margin="2"
+                    Padding="2"
+                    Clicked="feladataim_Clicked"/>
+
+            <Button x:Name="csoportkeszit"
+                    Grid.Column="2"
+                    ImageSource="csoport_hozzaad.png"
+                    BackgroundColor="{StaticResource pumpkinorange}"
+                    Margin="2"
+                    Padding="2"
+                    Clicked="csoportkeszit_Clicked"/>
+
+            <Button x:Name="profil"
+                    Grid.Column="3"
+                    ImageSource="profil2_2.png"
+                    BackgroundColor="{StaticResource pumpkinorange}"
+                    Margin="2"
+                    Padding="6"
+                    Clicked="profil_Clicked"/>
+
+            <!-- Csoportok Listája -->
+            <CollectionView x:Name="collectionCsoportok"
+                Grid.Row="1"
+                Grid.ColumnSpan="4"
+                SelectionMode="None"
+                HorizontalOptions="Center">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="Orange" BackgroundColor="{StaticResource pumpkinorange}" StrokeShape="RoundRectangle 10,10,10,10">
+                            <Grid ColumnDefinitions="*,*,*" RowDefinitions="*, *">
+
+                                <!-- Csoport neve -->
+                                <Label Text="{Binding Csoportnev}" 
+                           VerticalOptions="Center" 
+                           Grid.Row="0" />
+
+                                <!-- Csoport törlése -->
+                                <Button
+                        Grid.Column="2"
+                        Text="Törlés"
+                        BackgroundColor="Red"
+                        HorizontalOptions="End"
+                        VerticalOptions="Start"
+                        Clicked="Torles_Clicked"
+                        BindingContext="{Binding}" />
+
+                                <!-- Készítő neve -->
+                                <Label Text="{Binding Csoportkeszito}"  
+                           Grid.Column="1" 
+                           Grid.Row="1"  
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Start" />
+
+                                <!-- Létszám -->
+                                <Label Text="{Binding Letszam}" 
+                           Grid.Column="2" 
+                           Grid.Row="1" 
+                           VerticalOptions="Center" 
+                           HorizontalOptions="End" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+        </Grid>
+    </Border>
+</ContentPage>

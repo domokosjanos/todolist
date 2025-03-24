@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiToDoList.Oldalak.MenuPages.CsoportPages.Csoportkeszit"
+             Title="Csoportkeszit"  BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False">
+    <Border StrokeShape="RoundRectangle 40,40,40,40" Background="White" Margin="10,10,10,10">
+        <Grid RowDefinitions="1*,1*,1*,1*,1*"
+               VerticalOptions="Center"
+                HorizontalOptions="Center">
+
+            <Label 
+                Text="Csoport készítés"
+                FontSize="35"
+                FontFamily="NexaHeavy"
+                Margin="2, 2, 2, 15"
+                HorizontalOptions="Center"
+                />
+            <Label 
+                Text="A névben nem lehet szóköz(space)"
+                FontSize="15"
+                FontFamily="NexaHeavy"
+                Margin="2, 2, 2, 15"
+                HorizontalOptions="Center"
+                />
+
+            <Entry
+                x:Name="csoportentry"
+                WidthRequest="250"
+                FontSize="20"
+                FontFamily="NexaLight"
+                Grid.Row="1"
+                Margin="10"
+                Placeholder="Csoport neve:"
+                BackgroundColor="{StaticResource halvanyszurke}"
+                PlaceholderColor="Grey"
+                TextChanged="csoportentry_TextChanged"
+                />
+            <Button
+                x:Name="button_Letrehoz"
+                Text="Létrehoz"
+                FontSize="15"
+                FontFamily="NexaLight"
+                Margin="50, 30, 50, 0"             
+                TextColor="Black"
+                BackgroundColor="{StaticResource darkerorange}"
+                Grid.Row="3"
+                IsEnabled="False"
+                Clicked="button_Letrehoz_Clicked_1"
+                />
+            <Button
+                Text="Vissza"
+                FontSize="15"
+                FontFamily="NexaLight"
+                Margin="50, 30, 50, 0"             
+                TextColor="Black"
+                BackgroundColor="{StaticResource darkerorange}"
+                Grid.Row="4"
+                Clicked="Button_Clicked"
+                />
+
+        </Grid>
+    </Border>
+</ContentPage>

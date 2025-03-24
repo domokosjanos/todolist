@@ -1,0 +1,97 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\diak\\Downloads\\ToDoList\\Mauitodolist\\MauiToDoList\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{16609F0F-87A8-4DED-81EF-6B76032BBB14}|MauiToDoList\\MauiToDoList.csproj|c:\\users\\diak\\downloads\\todolist\\mauitodolist\\mauitodolist\\mauitodolist\\pages\\interfacepages\\feladatpages\\feladatok.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{16609F0F-87A8-4DED-81EF-6B76032BBB14}|MauiToDoList\\MauiToDoList.csproj|solutionrelative:mauitodolist\\pages\\interfacepages\\feladatpages\\feladatok.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16609F0F-87A8-4DED-81EF-6B76032BBB14}|MauiToDoList\\MauiToDoList.csproj|c:\\users\\diak\\downloads\\todolist\\mauitodolist\\mauitodolist\\mauitodolist\\pages\\fooldal.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{16609F0F-87A8-4DED-81EF-6B76032BBB14}|MauiToDoList\\MauiToDoList.csproj|solutionrelative:mauitodolist\\pages\\fooldal.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16609F0F-87A8-4DED-81EF-6B76032BBB14}|MauiToDoList\\MauiToDoList.csproj|c:\\users\\diak\\downloads\\todolist\\mauitodolist\\mauitodolist\\mauitodolist\\resources\\styles\\colors.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{16609F0F-87A8-4DED-81EF-6B76032BBB14}|MauiToDoList\\MauiToDoList.csproj|solutionrelative:mauitodolist\\resources\\styles\\colors.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129816893:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1594614772:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1687542824:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Fooldal.xaml",
+              "DocumentMoniker": "C:\\Users\\diak\\Downloads\\ToDoList\\Mauitodolist\\MauiToDoList\\MauiToDoList\\Pages\\Fooldal.xaml",
+              "RelativeDocumentMoniker": "MauiToDoList\\Pages\\Fooldal.xaml",
+              "ToolTip": "C:\\Users\\diak\\Downloads\\ToDoList\\Mauitodolist\\MauiToDoList\\MauiToDoList\\Pages\\Fooldal.xaml",
+              "RelativeToolTip": "MauiToDoList\\Pages\\Fooldal.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-12-02T07:32:10.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Feladatok.xaml",
+              "DocumentMoniker": "C:\\Users\\diak\\Downloads\\ToDoList\\Mauitodolist\\MauiToDoList\\MauiToDoList\\Pages\\InterfacePages\\FeladatPages\\Feladatok.xaml",
+              "RelativeDocumentMoniker": "MauiToDoList\\Pages\\InterfacePages\\FeladatPages\\Feladatok.xaml",
+              "ToolTip": "C:\\Users\\diak\\Downloads\\ToDoList\\Mauitodolist\\MauiToDoList\\MauiToDoList\\Pages\\InterfacePages\\FeladatPages\\Feladatok.xaml",
+              "RelativeToolTip": "MauiToDoList\\Pages\\InterfacePages\\FeladatPages\\Feladatok.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-12-02T07:29:43.178Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Colors.xaml",
+              "DocumentMoniker": "C:\\Users\\diak\\Downloads\\ToDoList\\Mauitodolist\\MauiToDoList\\MauiToDoList\\Resources\\Styles\\Colors.xaml",
+              "RelativeDocumentMoniker": "MauiToDoList\\Resources\\Styles\\Colors.xaml",
+              "ToolTip": "C:\\Users\\diak\\Downloads\\ToDoList\\Mauitodolist\\MauiToDoList\\MauiToDoList\\Resources\\Styles\\Colors.xaml",
+              "RelativeToolTip": "MauiToDoList\\Resources\\Styles\\Colors.xaml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACEAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-11-15T10:02:09.965Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 98,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

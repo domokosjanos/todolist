@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiToDoList.Oldalak.Regisztracio"
+             Title="Regisztracio" BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False">
+    <Border VerticalOptions="FillAndExpand" Margin="10" Stroke="{StaticResource darkerorange}" BackgroundColor="White" StrokeShape="RoundRectangle 30,30,30,30">
+        <ScrollView>
+            <VerticalStackLayout >
+
+                <Label
+                   Text="Regisztráció"
+                   HorizontalOptions="Center" 
+                   VerticalOptions="CenterAndExpand"
+                   FontFamily="NexaHeavy"
+                   Margin="20"
+                   FontSize="35"
+                    />
+                
+                <Entry
+                    x:Name="vezetekneventry"
+                    Placeholder="Vezetéknév:"
+                    MaxLength="40"
+                    Keyboard="Default"
+                    Margin="20"
+                    BackgroundColor="{StaticResource halvanyszurke}"
+                    PlaceholderColor="Grey"
+                    FontFamily="NexaLight"
+                    TextChanged="Entry_TextChanged"
+                    />
+                    
+                <Entry
+                    x:Name="keresztneventry"
+                    Placeholder="Keresztnév:" 
+                    MaxLength="40"
+                    Keyboard="Default"
+                    Margin="20"
+                    BackgroundColor="{StaticResource halvanyszurke}"
+                    PlaceholderColor="Grey"
+                    FontFamily="NexaLight"
+                    TextChanged="Entry_TextChanged"
+                    />
+                <Entry
+                    x:Name="harmadikNevEntry"
+                    Placeholder="Harmadiknév:" 
+                    MaxLength="40"
+                    Keyboard="Default"
+                    Margin="20"
+                    BackgroundColor="{StaticResource halvanyszurke}"
+                    PlaceholderColor="Grey"
+                    FontFamily="NexaLight"
+                    />
+
+                <HorizontalStackLayout 
+                    Margin="20"
+                    Spacing="10"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="Center">
+                    
+                    <Label
+                        Text="Születési idő:"
+                        FontSize="Small"
+                        VerticalOptions="Center"
+                        Margin="20"
+                    />
+
+                    <DatePicker
+                        x:Name="szuletesDatePicker"
+                        Margin="20"
+                        BackgroundColor="{StaticResource halvanyszurke}"
+                        FontFamily="NexaLight"
+                        DateSelected="szuletesDatePicker_DateSelected"
+                    />
+                </HorizontalStackLayout>
+                
+                <Entry
+                    x:Name="felhasznaloentry"
+                    Placeholder="Felhasználó:"
+                    MaxLength="30"
+                    Keyboard="Default"
+                    Margin="20"
+                    BackgroundColor="{StaticResource halvanyszurke}"
+                    PlaceholderColor="Grey"
+                    FontFamily="NexaLight"
+                    TextChanged="Entry_TextChanged"
+                    />
+                
+                <Entry
+                    x:Name="jelszoentry"
+                    Placeholder="Jelszó:"
+                    MaxLength="200"
+                    Keyboard="Default"
+                    IsPassword="True"
+                    Margin="20"
+                    BackgroundColor="{StaticResource halvanyszurke}"
+                    PlaceholderColor="Grey"
+                    FontFamily="NexaLight"
+                    TextChanged="Entry_TextChanged"
+                    />
+                
+                <Entry
+                    x:Name="emailentry"
+                    Placeholder="E-mail:" 
+                    MaxLength="255"
+                    Keyboard="Default"
+                    Margin="20"
+                    BackgroundColor="{StaticResource halvanyszurke}"
+                    PlaceholderColor="Grey"
+                    FontFamily="NexaLight"
+                    TextChanged="Entry_TextChanged"
+                    />
+                
+                <Entry
+                    x:Name="Telefon"
+                    Placeholder="Telefonszám:" 
+                    Keyboard="Numeric"
+                    MaxLength="15"
+                    Margin="20"
+                    BackgroundColor="{StaticResource halvanyszurke}"
+                    PlaceholderColor="Grey"
+                    FontFamily="NexaLight"
+                    TextChanged="Telefon_TextChanged"
+                    />
+                
+                <Button
+                    x:Name="button_Register"
+                    Text="Regisztráció"
+                    Margin="20"
+                    BackgroundColor="{StaticResource darkerorange}"
+                    Clicked="button_Register_Clicked"
+                    IsEnabled="False"
+                    />
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Border>
+</ContentPage>
