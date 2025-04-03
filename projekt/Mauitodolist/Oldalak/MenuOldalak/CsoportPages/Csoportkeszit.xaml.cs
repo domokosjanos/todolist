@@ -64,11 +64,11 @@ public partial class Csoportkeszit : ContentPage
 
             // Új csoport mentése
             await connection.InsertAsync(ujCsoport);
-
+            viewmodelCSPT.Aktcsoport = await connection.Table<Csoport>().Where(x => x.Csoportnev == csoportNev).FirstOrDefaultAsync();
             
-            DisplayAlert("Infó2", viewmodelCSPT.Aktcsoport.Csoportnev, "OK");
+            await DisplayAlert("Infó2", viewmodelCSPT.Aktcsoport.Csoportnev, "OK");
             
-            if(csoport == null)
+            if(viewmodelCSPT.Aktcsoport == null)
             {
                 await DisplayAlert("Hiba!", "Null érték", "A kenyérbe ezzel.");
                 return;
@@ -76,7 +76,7 @@ public partial class Csoportkeszit : ContentPage
             var ujTag = new Tag
             {
                 FHO_id = FHO_id,
-                CSPT_id = csoport.Id,
+                CSPT_id = viewmodelCSPT.Aktcsoport.Id,
                 Jogosultsag = true
             };
 
@@ -87,7 +87,7 @@ public partial class Csoportkeszit : ContentPage
             // Navigálj a Csoportok oldalra
             await Navigation.PushAsync(new Csoportok());
 
-            await connection.CloseAsync();
+            
         }
         else
         {
