@@ -79,6 +79,8 @@ public partial class Csoportkeszit : ContentPage
                 CSPT_id = viewmodelCSPT.Aktcsoport.Id,
                 Jogosultsag = true
             };
+            //await connection.DropTableAsync<Tag>();  // Régi tábla törlése
+            //await connection.CreateTableAsync<Tag>(); // Újra létrehozás
 
             await connection.CreateTableAsync<Tag>();
 
