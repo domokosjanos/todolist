@@ -8,11 +8,11 @@
         StrokeShape="RoundRectangle 40,40,40,40"
         Background="White"
         Margin="10,10,10,10">
-        
+
         <Grid
-            RowDefinitions=".1*,.1*,.1*,.6*,.1*"
+            RowDefinitions=".1*,.1*,.1*,.1*,.6*,.1*"
             ColumnDefinitions=".1*,.1*,.1*,.1*">
-            
+
             <Button 
                 x:Name="fooldal"
                 ImageSource="fooldalkep.png"
@@ -21,7 +21,7 @@
                 Padding="2"
                 Clicked="Buttonfooldal_Clicked"
              />
-            
+
             <Button 
                 x:Name="Ujfeladat"
                 Grid.Column="1"
@@ -31,7 +31,7 @@
                 Padding="2"
                 Clicked="Ujfeladat_Clicked"
             />
-            
+
             <Button 
                 x:Name="csoport"
                 Grid.Column="2"
@@ -41,7 +41,7 @@
                 Padding="2"
                 Clicked="csoport_Clicked"
             />
-            
+
             <Button 
                 x:Name="profil"
                 Grid.Column="3"
@@ -62,7 +62,7 @@
                 HorizontalOptions="Center" 
                 VerticalOptions="CenterAndExpand"
             />
-            
+
             <Entry 
                 WidthRequest="250"
                 HeightRequest="40"
@@ -74,7 +74,23 @@
                 Placeholder="Feladat címe:"
                 BackgroundColor="{StaticResource halvanyszurke}"
                 PlaceholderColor="Grey"
+                x:Name="CimEntry"
             />
+
+
+            <Picker 
+    x:Name="CsoportPicker"
+    Grid.ColumnSpan="4"
+    Grid.Row="3"
+    Margin="10"
+    WidthRequest="150"
+    HeightRequest="80"
+    FontSize="15"
+    BackgroundColor="{StaticResource halvanyszurke}"
+    Title="Válassz egy csoportot"
+/>
+
+
 
             <Editor
                 x:Name="feladatleiras"
@@ -83,7 +99,7 @@
                 Grid.ColumnSpan="4"
                 Placeholder="Feladat leírás:"
                 FontSize="15"
-                Grid.Row="3"
+                Grid.Row="4"
                 VerticalTextAlignment="Start"
                 BackgroundColor="{StaticResource halvanyszurke}"
                 PlaceholderColor="Grey"                  
@@ -92,7 +108,7 @@
 
             <Button
                 x:Name="Keszit"
-                Grid.Row="4"
+                Grid.Row="5"
                 Grid.ColumnSpan="4"
                 BackgroundColor="{StaticResource pumpkinorange}"
                 WidthRequest="200"
@@ -100,6 +116,8 @@
                 Text="Készítés"
                 FontSize="20"
                 Margin="10,10,10,5"
+                Clicked="Keszit_Clicked"
+                
             />
 
         </Grid>
