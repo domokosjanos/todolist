@@ -17,6 +17,8 @@ namespace MauiToDoList.Model.adatbazis.tablak
         public int Id { get; set; }
         [NotNull]
         public string Leiras { get; set; }
+        [NotNull]
+        public string Cim { get; set; }
         public string? Hatarido { get; set; }
         [NotNull]
         public Boolean Allapot { get; set; }
@@ -24,5 +26,7 @@ namespace MauiToDoList.Model.adatbazis.tablak
         public string Feladat_letrejotte { get; set; }
         [NotNull]
         public int FHO_id { get; set; }
+  
+        public string CSPT_nev { get; set; }
     }
 }

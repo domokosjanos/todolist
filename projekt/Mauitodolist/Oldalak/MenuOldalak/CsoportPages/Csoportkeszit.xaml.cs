@@ -53,10 +53,10 @@ public partial class Csoportkeszit : ContentPage
         var ujTag = new Tag
         {
             FHO_id = FHO_id,
-            CSPT_nev = ,
+            CSPT_nev = csoportNev,
             Jogosultsag = true
-        }
-        */
+        };*/
+        
         // Aszinkron kapcsolat létrehozása és adatbázisba mentés
         var connection =  DBcsatlakozas.CreateConnection();
 
@@ -72,6 +72,8 @@ public partial class Csoportkeszit : ContentPage
 
         // Navigálj a Csoportok oldalra
         await Navigation.PushAsync(new Csoportok());
+
+        
     }
 
     private void Button_Clicked(object sender, EventArgs e)

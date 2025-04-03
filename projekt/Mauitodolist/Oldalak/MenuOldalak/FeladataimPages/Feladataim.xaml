@@ -41,7 +41,26 @@
                 Padding="6"
                 Clicked="profil_Clicked"
                 />
-            
+            <ListView
+                x:Name="FeladatokListView"
+                Grid.Row="1"
+                Grid.ColumnSpan="4"
+                Margin="10"
+                BackgroundColor="White"
+                >
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10">
+                                <Label Text="{Binding Cim}" FontSize="20" FontAttributes="Bold"/>
+                                <Label Text="{Binding Leiras}" FontSize="15" TextColor="Black"/>
+                                <Label Text="{Binding CSPT_nev}" FontSize="15" TextColor="DarkOrange"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
         </Grid>
     </Border>
