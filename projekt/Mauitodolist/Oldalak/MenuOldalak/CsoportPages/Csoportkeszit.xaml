@@ -16,11 +16,25 @@
                 HorizontalOptions="Center"
                 />
             <Label 
-                Text="A névben nem lehet szóköz(space)"
+                x:Name="NevVisszaJelez"
+                Text="A csoport neve nincs megfelelően megadva. Próbáld meg szóközök nélkül."
                 FontSize="15"
                 FontFamily="NexaHeavy"
                 Margin="2, 2, 2, 15"
                 HorizontalOptions="Center"
+                IsVisible="False"
+                />
+
+            <Picker
+                x:Name="FelhasznaloPicker"
+                Grid.ColumnSpan="4"
+                Margin="10"
+                WidthRequest="200"
+                HeightRequest="50"
+                FontSize="15"
+                BackgroundColor="{StaticResource halvanyszurke}"
+                Title="Válasszd ki a felhasználókat:"
+                Grid.Row="1"
                 />
 
             <Entry
@@ -28,7 +42,7 @@
                 WidthRequest="250"
                 FontSize="20"
                 FontFamily="NexaLight"
-                Grid.Row="1"
+                Grid.Row="2"
                 Margin="10"
                 Placeholder="Csoport neve:"
                 BackgroundColor="{StaticResource halvanyszurke}"

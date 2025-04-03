@@ -31,51 +31,62 @@ public partial class Csoportkeszit : ContentPage
     private async void button_Letrehoz_Clicked_1(object sender, EventArgs e)
     {
         // Az Entry mezõ értéke
-        var formazottNev = csoportentry.Text.Replace(" ", "");
-        var csoportNev = formazottNev;
-
-        // Ellenõrizd, hogy van-e szöveg
-        if (string.IsNullOrEmpty(csoportNev))
+        NevVisszaJelez.IsVisible = false;
+        var formazottNev = "";
+        if (csoportentry.Text.Contains(' ') == true)
         {
-            // Ha nincs szöveg, jelezd a felhasználónak
-            await DisplayAlert("Hiba", "A csoport neve nem lehet üres.", "OK");
+            formazottNev = csoportentry.Text.Replace(" ", "_");
+            var csoportNev = formazottNev;
+
+            // Ellenõrizd, hogy van-e szöveg
+            if (string.IsNullOrEmpty(csoportNev))
+            {
+                // Ha nincs szöveg, jelezd a felhasználónak
+                await DisplayAlert("Visszajelzés", "A csoport neve nem lehet üres.", "OK");
+                return;
+            }
+
+            // Új Csoport objektum létrehozása
+            var ujCsoport = new Csoport
+            {
+                Csoportnev = csoportNev,
+                Csoportkeszito = viewmodelFHO.Aktfelhasznalo.Fnev, // Ha szükséges, itt állítsd be a felhasználót
+                Letszam = 1 // Kezdeti létszám, ezt késõbb módosíthatod
+            };
+
+            var ujTag = new Tag
+            {
+                FHO_id = FHO_id,
+                CSPT_id = viewmodelFHO.Aktfelhasznalo.Id,
+                Jogosultsag = true
+            };
+
+            // Aszinkron kapcsolat létrehozása és adatbázisba mentés
+            var connection = DBcsatlakozas.CreateConnection();
+
+            // Csoport tábla létrehozása, ha nem létezik
+            await connection.CreateTableAsync<Csoport>();
+
+            // Új csoport mentése
+            await connection.InsertAsync(ujCsoport);
+
+
+
+            await connection.CreateTableAsync<Tag>();
+
+            await connection.InsertAsync(ujTag);
+
+            // Navigálj a Csoportok oldalra
+            await Navigation.PushAsync(new Csoportok());
+
+            await connection.CloseAsync();
+        }
+        else
+        {
+            NevVisszaJelez.IsVisible = true;
             return;
         }
-
-        // Új Csoport objektum létrehozása
-        var ujCsoport = new Csoport
-        {
-            Csoportnev = csoportNev,
-            Csoportkeszito = viewmodelFHO.Aktfelhasznalo.Fnev, // Ha szükséges, itt állítsd be a felhasználót
-            Letszam = 1 // Kezdeti létszám, ezt késõbb módosíthatod
-        };
-        /*
-        var ujTag = new Tag
-        {
-            FHO_id = FHO_id,
-            CSPT_nev = viewmodelFHO.Aktfelhasznalo,
-            Jogosultsag = true
-        }
-        */
-        // Aszinkron kapcsolat létrehozása és adatbázisba mentés
-        var connection =  DBcsatlakozas.CreateConnection();
-
-        // Csoport tábla létrehozása, ha nem létezik
-        await connection.CreateTableAsync<Csoport>();
-
-        // Új csoport mentése
-        await connection.InsertAsync(ujCsoport);
-
         
-
-        await connection.CreateTableAsync<Tag>();
-
-        //await connection.InsertAsync(ujTag);
-
-        // Navigálj a Csoportok oldalra
-        await Navigation.PushAsync(new Csoportok());
-
-        await connection.CloseAsync();
     }
 
     private void Button_Clicked(object sender, EventArgs e)
