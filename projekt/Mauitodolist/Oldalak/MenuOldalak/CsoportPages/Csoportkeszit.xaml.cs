@@ -8,7 +8,7 @@ public partial class Csoportkeszit : ContentPage
 {
     private int FHO_id;
     public Viewmodel_FHO viewmodelFHO = new Viewmodel_FHO();
-    //public Viewmodel_CSPT viewmodelCSPT = new Viewmodel_CSPT();
+    public Viewmodel_CSPT viewmodelCSPT = new Viewmodel_CSPT();
 
     public Csoportkeszit(int id)
 	{
@@ -30,10 +30,11 @@ public partial class Csoportkeszit : ContentPage
 
     private async void button_Letrehoz_Clicked_1(object sender, EventArgs e)
     {
+        
         // Az Entry mezõ értéke
         NevVisszaJelez.IsVisible = false;
         var formazottNev = "";
-        if (csoportentry.Text.Contains(' ') == true)
+        if (csoportentry.Text.Any(char.IsWhiteSpace) == false)
         {
             formazottNev = csoportentry.Text.Replace(" ", "_");
             var csoportNev = formazottNev;
@@ -53,13 +54,7 @@ public partial class Csoportkeszit : ContentPage
                 Csoportkeszito = viewmodelFHO.Aktfelhasznalo.Fnev, // Ha szükséges, itt állítsd be a felhasználót
                 Letszam = 1 // Kezdeti létszám, ezt késõbb módosíthatod
             };
-
-            var ujTag = new Tag
-            {
-                FHO_id = FHO_id,
-                CSPT_id = viewmodelFHO.Aktfelhasznalo.Id,
-                Jogosultsag = true
-            };
+            await DisplayAlert("Infó", csoportNev, "OK");
 
             // Aszinkron kapcsolat létrehozása és adatbázisba mentés
             var connection = DBcsatlakozas.CreateConnection();
@@ -70,7 +65,20 @@ public partial class Csoportkeszit : ContentPage
             // Új csoport mentése
             await connection.InsertAsync(ujCsoport);
 
-
+            
+            DisplayAlert("Infó2", viewmodelCSPT.Aktcsoport.Csoportnev, "OK");
+            
+            if(csoport == null)
+            {
+                await DisplayAlert("Hiba!", "Null érték", "A kenyérbe ezzel.");
+                return;
+            }
+            var ujTag = new Tag
+            {
+                FHO_id = FHO_id,
+                CSPT_id = csoport.Id,
+                Jogosultsag = true
+            };
 
             await connection.CreateTableAsync<Tag>();
 

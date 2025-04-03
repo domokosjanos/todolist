@@ -12,7 +12,7 @@ namespace MauiToDoList.Model.adatbazis.tablak
     [System.ComponentModel.DataAnnotations.Schema.Table("Tagsag")]
     public class Tag
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         [NotNull]
         public int FHO_id { get; set; }

@@ -12,7 +12,7 @@ namespace MauiToDoList.Model.adatbazis.tablak
     [System.ComponentModel.DataAnnotations.Schema.Table("Felelosok")]
     public class Felelos
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         [NotNull]
         public int CSPT_id { get; set; }

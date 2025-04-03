@@ -61,7 +61,7 @@ public partial class Feladatok : ContentPage
 
         var connection = DBcsatlakozas.CreateConnection();
         await connection.CreateTableAsync<Feladat>();
-
+        /*
         var ujFeladat = new Feladat
         {
             FHO_id = FHO_id,
@@ -70,8 +70,8 @@ public partial class Feladatok : ContentPage
             Leiras = feladatleiras.Text,
             Feladat_letrejotte = DateTime.Now.ToString()
         };
-
-        await connection.InsertAsync(ujFeladat);
+        */
+        //await connection.InsertAsync(ujFeladat);
 
         await DisplayAlert("Siker", "A feladat sikeresen létrejött!", "OK");
 
