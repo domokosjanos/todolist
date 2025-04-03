@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MauiToDoList.Model.adatbazis.kod
 {
     [AddINotifyPropertyChangedInterface]
-    class Viewmodel_FLS
+    public class Viewmodel_FLS
     {
         public List<Felelos> Felelosok { get; set; } = new List<Felelos>();
         private Szolgaltatas Szolgaltatas = new Szolgaltatas();

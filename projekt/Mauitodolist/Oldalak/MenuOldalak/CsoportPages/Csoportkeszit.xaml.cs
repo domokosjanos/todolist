@@ -9,6 +9,8 @@ public partial class Csoportkeszit : ContentPage
     private int FHO_id;
     public Viewmodel_FHO viewmodelFHO = new Viewmodel_FHO();
     //public Viewmodel_CSPT viewmodelCSPT = new Viewmodel_CSPT();
+    private List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
+    
 
     public Csoportkeszit(int id)
 	{
@@ -21,7 +23,21 @@ public partial class Csoportkeszit : ContentPage
         }
         FHO_id = id;
 
+        BetoltesFelhasznalok();
+
 	}
+
+    private async void BetoltesFelhasznalok()
+    {
+        var connection = DBcsatlakozas.CreateConnection();
+        var felhasznalokLista = await connection.Table<Felhasznalo>().ToListAsync();
+
+        // Az IsSelected property már létezik a Felhasznalo osztályban
+        felhasznalokLista.ForEach(f => f.IsSelected = false); // Alapértelmezett állapot: nem kiválasztott
+
+        felhasznalok = felhasznalokLista; // Felhasználók lista mentése a megfelelõ helyre
+        FelhasznaloCollectionView.ItemsSource = felhasznalokLista; // A CollectionView frissítése
+    }
 
     private void csoportentry_TextChanged(object sender, TextChangedEventArgs e)
     {
@@ -37,43 +53,65 @@ public partial class Csoportkeszit : ContentPage
         // Ellenõrizd, hogy van-e szöveg
         if (string.IsNullOrEmpty(csoportNev))
         {
-            // Ha nincs szöveg, jelezd a felhasználónak
             await DisplayAlert("Hiba", "A csoport neve nem lehet üres.", "OK");
             return;
         }
 
-        // Új Csoport objektum létrehozása
         var ujCsoport = new Csoport
         {
             Csoportnev = csoportNev,
-            Csoportkeszito = viewmodelFHO.Aktfelhasznalo.Fnev, // Ha szükséges, itt állítsd be a felhasználót
-            Letszam = 1 // Kezdeti létszám, ezt késõbb módosíthatod
+            Csoportkeszito = viewmodelFHO.Aktfelhasznalo.Fnev,
+            Letszam = 0 // Kezdeti létszám a készítõvel
         };
-        /*
-        var ujTag = new Tag
-        {
-            FHO_id = FHO_id,
-            CSPT_nev = csoportNev,
-            Jogosultsag = true
-        };*/
-        
-        // Aszinkron kapcsolat létrehozása és adatbázisba mentés
-        var connection =  DBcsatlakozas.CreateConnection();
 
-        // Csoport tábla létrehozása, ha nem létezik
+        var connection = DBcsatlakozas.CreateConnection();
         await connection.CreateTableAsync<Csoport>();
-
-        // Új csoport mentése
         await connection.InsertAsync(ujCsoport);
+
+        var csoport = await connection.Table<Csoport>().FirstOrDefaultAsync(c => c.Csoportnev == csoportNev);
+
+        if (csoport == null)
+        {
+            await DisplayAlert("Hiba", "A csoportot nem sikerült létrehozni.", "OK");
+            return;
+        }
 
         await connection.CreateTableAsync<Tag>();
 
-        //await connection.InsertAsync(ujTag);
+        int letszam = 0; // Kezdjük a létszámot a csoport készítõjével (1)
 
-        // Navigálj a Csoportok oldalra
-        await Navigation.PushAsync(new Csoportok());
+        // A csoport készítõjének hozzáadása a Tag táblához
+        var keszitoTag = new Tag
+        {
+            FHO_id = FHO_id,
+            CSPT_id = csoport.Id,
+            Jogosultsag = true
+        };
+        await connection.InsertAsync(keszitoTag);
+        letszam++; // Növeljük a létszámot a készítõvel
 
-        
+        // A kiválasztott felhasználók beillesztése a Tag táblába
+        var kijeloltFelhasznalok = felhasznalok.Where(f => f.IsSelected).ToList();
+        letszam += kijeloltFelhasznalok.Count; // A kiválasztott felhasználók számának hozzáadása
+
+        foreach (var felhasznalo in kijeloltFelhasznalok)
+        {
+            var ujTag = new Tag
+            {
+                FHO_id = felhasznalo.Id,
+                CSPT_id = csoport.Id,
+                Jogosultsag = false // Az alapértelmezett jogosultság
+            };
+            await connection.InsertAsync(ujTag);
+        }
+
+        // Frissítjük a csoport létszámát
+        csoport.Letszam = letszam;
+        await connection.UpdateAsync(csoport); // A csoport létszámának frissítése
+
+        await DisplayAlert("Siker", "A csoport létrehozása sikeres volt.", "OK");
+        await Navigation.PushAsync(new Csoportok(FHO_id));
+
     }
 
     private void Button_Clicked(object sender, EventArgs e)

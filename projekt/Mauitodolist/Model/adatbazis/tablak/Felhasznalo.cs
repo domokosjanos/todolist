@@ -27,7 +27,8 @@ namespace MauiToDoList.Model.adatbazis.tablak
         public string Jelszo { get; set; }
         [NotNull, Unique]
         public string Email { get; set; }
-        
+
+        public bool IsSelected { get; set; } //próbának
         public string? Tszam { get; set; }
     }
 }
