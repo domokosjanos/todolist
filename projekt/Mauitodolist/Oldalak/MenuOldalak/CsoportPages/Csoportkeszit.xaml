@@ -15,13 +15,7 @@
                 Margin="2, 2, 2, 15"
                 HorizontalOptions="Center"
                 />
-            <Label 
-                Text="A névben nem lehet szóköz(space)"
-                FontSize="15"
-                FontFamily="NexaHeavy"
-                Margin="2, 2, 2, 15"
-                HorizontalOptions="Center"
-                />
+            
 
             <Entry
                 x:Name="csoportentry"
@@ -35,6 +29,27 @@
                 PlaceholderColor="Grey"
                 TextChanged="csoportentry_TextChanged"
                 />
+            
+            <CollectionView
+    x:Name="FelhasznaloCollectionView"
+    Grid.Row="2"
+    Grid.ColumnSpan="4"
+    Margin="10"
+    BackgroundColor="White"
+    SelectionMode="None">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                            <Label Text="{Binding Fnev}" VerticalOptions="Center" Margin="10,0" TextColor="Black"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+
+
             <Button
                 x:Name="button_Letrehoz"
                 Text="Létrehoz"

@@ -1,3 +1,4 @@
+using MauiToDoList.Model.adatbazis.tablak;
 using MauiToDoList.Oldalak.MenuPages.CsoportPages;
 using MauiToDoList.Oldalak.MenuPages.FeladatPages;
 using MauiToDoList.Oldalak.MenuPages.ProfilPages;
@@ -32,4 +33,16 @@ public partial class Feladataim : ContentPage
     {
         Navigation.PushAsync(new Profilok(FHO_id));
     }
+
+    public async void BetoltesFeladatok()
+    {
+        var connection = DBcsatlakozas.CreateConnection();
+
+        var feladatok = await connection.Table<Feladat>()
+                                       .Where(f => f.FHO_id == FHO_id)
+                                       .ToListAsync();
+
+        FeladatokListView.ItemsSource = feladatok;
+    }
+
 }
