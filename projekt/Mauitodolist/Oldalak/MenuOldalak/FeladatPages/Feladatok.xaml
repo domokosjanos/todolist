@@ -75,20 +75,22 @@
                 BackgroundColor="{StaticResource halvanyszurke}"
                 PlaceholderColor="Grey"
                 x:Name="CimEntry"
+                TextColor="Black"
             />
 
 
             <Picker 
-    x:Name="CsoportPicker"
-    Grid.ColumnSpan="4"
-    Grid.Row="3"
-    Margin="10"
-    WidthRequest="150"
-    HeightRequest="80"
-    FontSize="15"
-    BackgroundColor="{StaticResource halvanyszurke}"
-    Title="Válassz egy csoportot"
-/>
+                x:Name="CsoportPicker"
+                Grid.ColumnSpan="4"
+                Grid.Row="3"
+                Margin="10"
+                WidthRequest="150"
+                HeightRequest="80"
+                FontSize="15"
+                BackgroundColor="{StaticResource halvanyszurke}"
+                Title="Válassz egy csoportot"
+                TextColor="Black"
+            />
 
 
 
@@ -104,6 +106,7 @@
                 BackgroundColor="{StaticResource halvanyszurke}"
                 PlaceholderColor="Grey"                  
                 AutoSize="TextChanges" 
+                TextColor="Black"
             />
 
             <Button

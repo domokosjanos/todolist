@@ -27,7 +27,8 @@
             Placeholder="Email"
             BackgroundColor="{StaticResource halvanyszurke}"
             PlaceholderColor="Grey"
-            TextChanged="Entry_TextChanged"/>
+            TextChanged="Entry_TextChanged"
+            TextColor="Black"/>
 
             <Entry
             x:Name="passwordEntry"

@@ -15,10 +15,10 @@ namespace MauiToDoList.Model.adatbazis.tablak
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         [NotNull]
-        public string Csoportnev { get; set; }
+        public string Csoportnev { get; set; } = "";
         [NotNull]
-        public string Csoportkeszito { get; set; }
+        public string Csoportkeszito { get; set; } = "";
         [NotNull]
-        public int Letszam { get; set; } //törlésnél játszik szerepet
+        public int Letszam { get; set; } = 0; //törlésnél játszik szerepet
     }
 }

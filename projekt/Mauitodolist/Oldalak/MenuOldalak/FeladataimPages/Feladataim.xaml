@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiToDoList.Oldalak.MenuPages.FeladataimPages.Feladataim"
-             Title="Feladataim" BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False">
+             Title="Feladataim" BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False"
+             xmlns:local="clr-namespace:MauiToDoList.Oldalak.MenuPages.FeladataimPages">
     <Border StrokeShape="RoundRectangle 40,40,40,40" Background="White" Margin="10,10,10,10">
         <Grid
             RowDefinitions=".1*,.8*,.1*"
             ColumnDefinitions=".1*,.1*,.1*,.1*">
-            <Button 
+            <Button
                 ImageSource="fooldalkep.png"
                 BackgroundColor="{StaticResource pumpkinorange}"
                 Margin="2"
                 Padding="2"
                 Clicked="Buttonfooldal_Clicked"
                 />
-            <Button 
+            <Button
                 x:Name="feladat_keszit"
                 Grid.Column="1"
                 ImageSource="feladat_keszit.png"
@@ -23,7 +23,7 @@
                 Padding="2"
                 Clicked="feladat_keszit_Clicked"
                 />
-            <Button 
+            <Button
                 x:Name="csoport"
                 Grid.Column="2"
                 ImageSource="csoport5.png"
@@ -32,7 +32,7 @@
                 Padding="2"
                 Clicked="csoport_Clicked"
                 />
-            <Button 
+            <Button
                 x:Name="profil"
                 Grid.Column="3"
                 ImageSource="profil2_2.png"
@@ -48,7 +48,6 @@
                 Margin="10"
                 BackgroundColor="White"
                 >
-
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -56,12 +55,37 @@
                                 <Label Text="{Binding Cim}" FontSize="20" FontAttributes="Bold"/>
                                 <Label Text="{Binding Leiras}" FontSize="15" TextColor="Black"/>
                                 <Label Text="{Binding CSPT_nev}" FontSize="15" TextColor="DarkOrange"/>
+
+
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                    <Button
+    Text="Kész"
+    Clicked="KeszFeladat_Clicked"
+    IsEnabled="{Binding Allapot, Converter={StaticResource InvertBoolConverter}}"
+    Style="{Binding Allapot,  ConverterParameter=Kesz}"
+    BackgroundColor="{Binding Allapot,  ConverterParameter=Kesz}"
+                                        Margin="10"/>
+                                    <Button
+    Text="Nincs kész"
+    Clicked="NemKeszFeladat_Clicked"
+    IsEnabled="{Binding Allapot, Converter={StaticResource BoolConverter}}"
+    Style="{Binding Allapot, ConverterParameter=NemKesz}"
+    BackgroundColor="{Binding Allapot,  ConverterParameter=NemKesz}" 
+                                        Margin="10"/>
+                                    <Button
+                                        Text="Törlés"
+                                        Margin="5"
+                                        Padding="5"
+                                        Clicked="FeladatTorles_Clicked"
+                                        VerticalOptions="End"
+                                        HorizontalOptions="End"
+                                        BackgroundColor="Red"/>
+                                </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
         </Grid>
     </Border>
 </ContentPage>

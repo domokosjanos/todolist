@@ -18,5 +18,7 @@ namespace MauiToDoList.Model.adatbazis.tablak
         public int CSPT_id { get; set; }
         [NotNull]
         public int FAT_id { get; set; }
+        [NotNull]
+        public string FeladatNev { get; set; } = ""; // 👈 alapértelmezett érték
     }
 }
