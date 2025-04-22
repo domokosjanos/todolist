@@ -28,6 +28,7 @@
                 BackgroundColor="{StaticResource halvanyszurke}"
                 PlaceholderColor="Grey"
                 TextChanged="csoportentry_TextChanged"
+                TextColor="Black"
                 />
             
             <CollectionView
@@ -53,7 +54,7 @@
             <Button
                 x:Name="button_Letrehoz"
                 Text="Létrehoz"
-                FontSize="15"
+                FontSize="20"
                 FontFamily="NexaLight"
                 Margin="50, 30, 50, 0"             
                 TextColor="Black"
@@ -61,10 +62,11 @@
                 Grid.Row="3"
                 IsEnabled="False"
                 Clicked="button_Letrehoz_Clicked_1"
+                
                 />
             <Button
                 Text="Vissza"
-                FontSize="15"
+                FontSize="20"
                 FontFamily="NexaLight"
                 Margin="50, 30, 50, 0"             
                 TextColor="Black"
