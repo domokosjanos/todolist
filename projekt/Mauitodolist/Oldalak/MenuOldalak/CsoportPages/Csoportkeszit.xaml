@@ -14,8 +14,9 @@
                 FontFamily="NexaHeavy"
                 Margin="2, 2, 2, 15"
                 HorizontalOptions="Center"
+                TextColor="Black"
                 />
-            
+
 
             <Entry
                 x:Name="csoportentry"
@@ -30,7 +31,7 @@
                 TextChanged="csoportentry_TextChanged"
                 TextColor="Black"
                 />
-            
+
             <CollectionView
     x:Name="FelhasznaloCollectionView"
     Grid.Row="2"
@@ -48,7 +49,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            
+
 
 
             <Button

@@ -2,9 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiToDoList.Oldalak.Fooldal"
-             Title="Fooldal" BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False">
+             Title="Fooldal" BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False"
+             xmlns:maui="http://schemas.microsoft.com/dotnet/2021/maui">
 
     <Border StrokeShape="RoundRectangle 40,40,40,40" Background="White" Margin="10,10,10,10">
+        
         <Grid RowDefinitions=".1*, .1*, .1*, .1*, .1*">
             
             <!--<Label Grid.Row="0"
@@ -26,8 +28,9 @@
                     ImageSource="feladatkesz2.png"
                     FontFamily="NexaHeavy"
                     />
+            
 
-            <Button Grid.Row="2"
+            <Button Grid.Row="3"
                     x:Name="Button_csoportok"
                     Grid.Column="1"
                     Text="Csoportok"
@@ -39,7 +42,7 @@
                     FontFamily="NexaHeavy"
                     />
             
-            <Button Grid.Row="3" 
+            <Button Grid.Row="2" 
                     x:Name="Button_feladatkeszit"
                     Text="Feladat készítés"
                     Margin="10"

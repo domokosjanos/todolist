@@ -42,46 +42,41 @@
                 Clicked="profil_Clicked"
                 />
             <ListView
-                x:Name="FeladatokListView"
-                Grid.Row="1"
-                Grid.ColumnSpan="4"
-                Margin="10"
-                BackgroundColor="White"
-                >
+    x:Name="FeladatokListView"
+    Grid.Row="1"
+    Grid.ColumnSpan="4"
+    Margin="10"
+    BackgroundColor="Transparent"
+    SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10">
-                                <Label Text="{Binding Cim}" FontSize="20" FontAttributes="Bold"/>
-                                <Label Text="{Binding Leiras}" FontSize="15" TextColor="Black"/>
-                                <Label Text="{Binding CSPT_nev}" FontSize="15" TextColor="DarkOrange"/>
+                            <Border Padding="15" Margin="5" StrokeShape="RoundRectangle 15" BackgroundColor="White">
+                                <VerticalStackLayout Spacing="8">
+                                    <Label Text="{Binding Cim}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding Leiras}" FontSize="15" TextColor="Gray" />
+                                    <Label Text="{Binding CSPT_nev}" FontSize="14" TextColor="{StaticResource pumpkinorange}" />
 
-
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                                    <Button
-    Text="Kész"
-    Clicked="KeszFeladat_Clicked"
-    IsEnabled="{Binding Allapot, Converter={StaticResource InvertBoolConverter}}"
-    Style="{Binding Allapot,  ConverterParameter=Kesz}"
-    BackgroundColor="{Binding Allapot,  ConverterParameter=Kesz}"
-                                        Margin="10"/>
-                                    <Button
-    Text="Nincs kész"
-    Clicked="NemKeszFeladat_Clicked"
-    IsEnabled="{Binding Allapot, Converter={StaticResource BoolConverter}}"
-    Style="{Binding Allapot, ConverterParameter=NemKesz}"
-    BackgroundColor="{Binding Allapot,  ConverterParameter=NemKesz}" 
-                                        Margin="10"/>
-                                    <Button
-                                        Text="Törlés"
-                                        Margin="5"
-                                        Padding="5"
-                                        Clicked="FeladatTorles_Clicked"
-                                        VerticalOptions="End"
-                                        HorizontalOptions="End"
-                                        BackgroundColor="Red"/>
-                                </StackLayout>
-                            </StackLayout>
+                                    <HorizontalStackLayout HorizontalOptions="End" Spacing="10" Margin="0,10,0,0">
+                                        <Button
+                                Text="Kész"
+                                Clicked="KeszFeladat_Clicked"
+                                IsEnabled="{Binding Allapot, Converter={StaticResource InvertBoolConverter}}"
+                                Style="{StaticResource allapotGombStilus}"
+                                BackgroundColor="{Binding Allapot, ConverterParameter=Kesz}" />
+                                        <Button
+                                Text="Nincs kész"
+                                Clicked="NemKeszFeladat_Clicked"
+                                IsEnabled="{Binding Allapot, Converter={StaticResource BoolConverter}}"
+                                Style="{StaticResource allapotGombStilus}"
+                                BackgroundColor="{Binding Allapot, ConverterParameter=NemKesz}" />
+                                        <Button
+                                Text="Törlés"
+                                Clicked="FeladatTorles_Clicked"
+                                Style="{StaticResource torlesGombStilus}" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Border>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
