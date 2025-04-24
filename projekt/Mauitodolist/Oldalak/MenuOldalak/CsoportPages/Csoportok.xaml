@@ -77,7 +77,8 @@
                         BindingContext="{Binding}"
                         FontSize="Small"
                         Padding="5"
-                        CornerRadius="5" />
+                        CornerRadius="5"
+                        IsEnabled="{Binding IsTorolheto}"/>
 
                                 <Label Text="{Binding Letszam, StringFormat='Létszám: {0} fő'}"
                            Grid.Column="1"

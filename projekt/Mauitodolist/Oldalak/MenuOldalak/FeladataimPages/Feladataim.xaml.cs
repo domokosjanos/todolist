@@ -57,7 +57,7 @@ public partial class Feladataim : ContentPage
             .Where(f => f.FHO_id == FHO_id || csoportnevek.Contains(f.CSPT_nev))
             .ToList();
 
-        // Itt pl. ListView vagy CollectionView-hoz adhatod hozzá
+        // ListView vagy CollectionView-hoz adhatod hozzá
         FeladatokListView.ItemsSource = sajatFeladatok;
     }
 
@@ -166,17 +166,25 @@ public partial class Feladataim : ContentPage
 
         if (feladat != null)
         {
-            bool valasz = await DisplayAlert("Törlés megerõsítése", $"Biztosan törölni szeretnéd a következõ feladatot: '{feladat.Cim}'?", "Igen", "Nem");
-
-            if (valasz)
+            // Ellenõrizzük, hogy a bejelentkezett felhasználó hozta-e létre a feladatot
+            if (feladat.FHO_id == FHO_id)
             {
-                var connection = DBcsatlakozas.CreateConnection();
-                await connection.DeleteAsync(feladat);
+                bool valasz = await DisplayAlert("Törlés megerõsítése", $"Biztosan törölni szeretnéd a következõ feladatot: '{feladat.Cim}'?", "Igen", "Nem");
 
-                // Frissítjük a ListView-t
-                await BetoltesFeladatok();
+                if (valasz)
+                {
+                    var connection = DBcsatlakozas.CreateConnection();
+                    await connection.DeleteAsync(feladat);
+
+                    // Frissítjük a ListView-t
+                    await BetoltesFeladatok();
+                }
+                // Ha a felhasználó a "Nem" gombra kattintott, semmi nem történik
             }
-            // Ha a felhasználó a "Nem" gombra kattintott, semmi nem történik
+            else
+            {
+                await DisplayAlert("Hozzáférés megtagadva", "Csak a feladat létrehozója törölheti azt.", "OK");
+            }
         }
     }
 

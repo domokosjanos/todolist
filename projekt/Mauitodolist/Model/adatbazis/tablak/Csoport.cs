@@ -20,5 +20,8 @@ namespace MauiToDoList.Model.adatbazis.tablak
         public string Csoportkeszito { get; set; } = "";
         [NotNull]
         public int Letszam { get; set; } = 0; //törlésnél játszik szerepet
+
+        [Ignore] // Fontos: ne kerüljön az adatbázisba!
+        public bool IsTorolheto { get; set; } = false;
     }
 }

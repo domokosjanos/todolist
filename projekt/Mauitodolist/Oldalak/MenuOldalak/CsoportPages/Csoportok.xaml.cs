@@ -9,13 +9,21 @@ namespace MauiToDoList.Oldalak.MenuPages.CsoportPages;
 public partial class Csoportok : ContentPage
 {
     private SQLiteAsyncConnection _connection;
+    private Felhasznalo AktFelhasznalo;
     private int FHO_id;
-
+    private Viewmodel_FHO viewmodelFHO; // Hozzáadtuk a Viewmodel_FHO példányt
     public Csoportok(int id)
     {
         InitializeComponent();
         FHO_id = id;
         _connection = DBcsatlakozas.CreateConnection(); // Adatbáziskapcsolat inicializálása
+        viewmodelFHO = new Viewmodel_FHO(); // Inicializáljuk a Viewmodel_FHO-t
+
+        // Lekérjük az aktuális felhasználót
+        AktFelhasznalo = viewmodelFHO.Felhasznalok.FirstOrDefault(f => f.Id == FHO_id);
+
+        // Csoportok betöltése, stb.
+        BetoltCsoportok();
     }
 
     public Csoportok()
@@ -41,8 +49,15 @@ public partial class Csoportok : ContentPage
             // Ellenõrizzük, hogy létezik-e a tábla, ha nem, hozzuk létre
             await _connection.CreateTableAsync<Csoport>();
 
-            // Csoportok lekérése az adatbázisból
+            // Csoportok lekérése
             var csoportLista = await _connection.Table<Csoport>().ToListAsync();
+
+            // Minden csoporthoz hozzárendeljük, hogy törölhetõ-e
+            foreach (var csoport in csoportLista)
+            {
+                // Javítva: az AktFelhasznalo mezõt használjuk
+                csoport.IsTorolheto = csoport.Csoportkeszito == AktFelhasznalo?.Fnev;
+            }
 
             // CollectionView frissítése
             collectionCsoportok.ItemsSource = csoportLista;
@@ -79,21 +94,27 @@ public partial class Csoportok : ContentPage
         // Megnézzük, hogy melyik gomb lett megnyomva
         if (sender is Button button && button.BindingContext is Csoport torlendoCsoport)
         {
+            // Jogosultság ellenõrzés
+            // Javítva: az AktFelhasznalo mezõt használjuk és null-biztos elérést alkalmazunk
+            if (AktFelhasznalo?.Fnev != torlendoCsoport.Csoportkeszito)
+            {
+                //ha valahogy mégsem lenne ínaktív a gomb 
+                await DisplayAlert("Hozzáférés megtagadva", "Csak a csoport készítõje törölheti a csoportot.", "OK");
+                return;
+            }
+
             bool valasz = await DisplayAlert("Törlés", "Biztosan törölni szeretnéd?", "Igen", "Nem");
 
             if (valasz)
             {
                 try
                 {
-                    // Csoport törlése az adatbázisból
                     await _connection.DeleteAsync(torlendoCsoport);
-
-                    // Frissítjük a csoportok listáját
                     await BetoltCsoportok();
                 }
                 catch (Exception ex)
                 {
-                    await DisplayAlert("Hiba", $"Hiba történt a törlés során: {ex.Message}", "OK");
+                    await DisplayAlert("Hiba", $"Hiba történt: {ex.Message}", "OK");
                 }
             }
         }

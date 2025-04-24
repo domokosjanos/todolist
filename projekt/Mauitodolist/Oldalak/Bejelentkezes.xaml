@@ -16,7 +16,8 @@
             Margin="2, 2, 2, 15"
             HorizontalOptions="Center" 
             VerticalOptions="CenterAndExpand"
-        />
+            TextColor="Black"
+            />
             <Entry
             x:Name="emailEntry"
             WidthRequest="250"
@@ -41,7 +42,8 @@
             Placeholder="Jelszó"
             BackgroundColor="{StaticResource halvanyszurke}"
             PlaceholderColor="Grey"
-            TextChanged="Entry_TextChanged"/>
+            TextChanged="Entry_TextChanged"
+            TextColor="Black"/>
 
             <Button
             x:Name="button_Bejelentkezes"
