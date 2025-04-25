@@ -1,3 +1,4 @@
+using MauiToDoList.Converters;
 using MauiToDoList.Model.adatbazis.kod;
 using MauiToDoList.Model.adatbazis.tablak;
 using MauiToDoList.Oldalak.MenuPages.FeladataimPages;
@@ -10,6 +11,7 @@ public partial class Csoportok : ContentPage
 {
     private SQLiteAsyncConnection _connection;
     private Felhasznalo AktFelhasznalo;
+    private Tag Tagok;
     private int FHO_id;
     private Viewmodel_FHO viewmodelFHO; // Hozzáadtuk a Viewmodel_FHO példányt
     public Csoportok(int id)
@@ -51,16 +53,29 @@ public partial class Csoportok : ContentPage
 
             // Csoportok lekérése
             var csoportLista = await _connection.Table<Csoport>().ToListAsync();
+            var TagokListaja = await _connection.Table<Tag>().Where(x=> x.FHO_id == AktFelhasznalo.Id).ToListAsync();
 
+            List<Csoport> megjelenoCsoportok = new List<Csoport>();
             // Minden csoporthoz hozzárendeljük, hogy törölhetõ-e
             foreach (var csoport in csoportLista)
             {
                 // Javítva: az AktFelhasznalo mezõt használjuk
                 csoport.IsTorolheto = csoport.Csoportkeszito == AktFelhasznalo?.Fnev;
+                //Csak azok a Csoportok, ahol tag a felhasználó
+                foreach (var tag in TagokListaja)
+                {
+                    if (tag.CSPT_id == csoport.Id)
+                    {
+
+                        //Ha a csoport tagja
+                        megjelenoCsoportok.Add(csoport);
+                        
+                    }
+                }
             }
 
             // CollectionView frissítése
-            collectionCsoportok.ItemsSource = csoportLista;
+            collectionCsoportok.ItemsSource = megjelenoCsoportok;
         }
         catch (Exception ex)
         {
@@ -103,7 +118,6 @@ public partial class Csoportok : ContentPage
         }
         await Navigation.PushAsync(new Csoportkeszit(FHO_id));
     }
-
     private async void profil_Clicked(object sender, EventArgs e)
     {
         var button = sender as Button;
@@ -115,7 +129,6 @@ public partial class Csoportok : ContentPage
         }
         await Navigation.PushAsync(new Profilok(FHO_id));
     }
-
 
     private async void Torles_Clicked(object sender, EventArgs e)
     {
