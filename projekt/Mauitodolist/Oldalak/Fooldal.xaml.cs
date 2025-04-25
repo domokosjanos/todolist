@@ -33,6 +33,7 @@ public partial class Fooldal : ContentPage
         Felhasznalok = felhasznalok.ToDictionary(x => x.Id);
         InitializeComponent();
         FHO_id = id;
+        FnevUdvozlo.Text = $"Üdvözöllek, {felhasznalok[id - 1].Fnev}!";
         if (Felhasznalok.ContainsKey(id))
         {
             var felhasznalo = new List<Felhasznalo> { Felhasznalok[id] };

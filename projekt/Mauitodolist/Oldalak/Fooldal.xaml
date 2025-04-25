@@ -18,16 +18,15 @@
         
 
         <Grid RowDefinitions=".1*, .1*, .1*, .1*, .1*">
-            
-            
-            <!--<Label Grid.Row="0"
+
+            <Label Grid.Row="0"
                Grid.ColumnSpan="2"
-               Text="{Binding Aktfelhasznalo.Fnev}"
                HorizontalTextAlignment="Center"
                FontSize="Large"
                Margin="15"
-                   /> -->
-            
+               x:Name="FnevUdvozlo"
+               />
+
 
             <Button Grid.Row="1"
                     x:Name="Button_feladataim"
