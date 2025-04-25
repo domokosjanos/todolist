@@ -20,8 +20,16 @@
                 Margin="2"
                 Padding="2"
                 Clicked="Buttonfooldal_Clicked"
-             />
-            
+             >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
+
             <Button 
                 x:Name="Ujfeladat"
                 Grid.Column="1"
@@ -30,8 +38,16 @@
                 Margin="2"
                 Padding="2"
                 Clicked="Ujfeladat_Clicked"
-            />
-            
+            >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
+
             <Button 
                 x:Name="csoport"
                 Grid.Column="2"
@@ -40,8 +56,16 @@
                 Margin="2"
                 Padding="2"
                 Clicked="csoport_Clicked"
-            />
-            
+            >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
+
             <Button 
                 x:Name="profil"
                 Grid.Column="3"
@@ -50,7 +74,15 @@
                 Margin="2"
                 Padding="6"
                 Clicked="profil_Clicked"
-            />
+            >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
 
             <Label 
                 Text="Feladat készítés"

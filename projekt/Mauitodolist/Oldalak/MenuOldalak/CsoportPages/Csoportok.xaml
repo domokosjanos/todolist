@@ -12,7 +12,15 @@
                     BackgroundColor="{StaticResource pumpkinorange}"
                     Margin="2"
                     Padding="2"
-                    Clicked="Buttonfooldal_Clicked"/>
+                    Clicked="Buttonfooldal_Clicked">
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
 
             <Button x:Name="feladataim"
                     Grid.Column="1"
@@ -20,7 +28,15 @@
                     BackgroundColor="{StaticResource pumpkinorange}"
                     Margin="2"
                     Padding="2"
-                    Clicked="feladataim_Clicked"/>
+                    Clicked="feladataim_Clicked">
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
 
             <Button x:Name="csoportkeszit"
                     Grid.Column="2"
@@ -28,7 +44,15 @@
                     BackgroundColor="{StaticResource pumpkinorange}"
                     Margin="2"
                     Padding="2"
-                    Clicked="csoportkeszit_Clicked"/>
+                    Clicked="csoportkeszit_Clicked">
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
 
             <Button x:Name="profil"
                     Grid.Column="3"
@@ -36,7 +60,15 @@
                     BackgroundColor="{StaticResource pumpkinorange}"
                     Margin="2"
                     Padding="6"
-                    Clicked="profil_Clicked"/>
+                    Clicked="profil_Clicked">
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
 
             <!-- Csoportok Listája -->
             <CollectionView x:Name="collectionCsoportok"
