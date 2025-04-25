@@ -16,7 +16,8 @@
             Margin="2, 2, 2, 15"
             HorizontalOptions="Center" 
             VerticalOptions="CenterAndExpand"
-        />
+            TextColor="Black"
+            />
             <Entry
             x:Name="emailEntry"
             WidthRequest="250"
@@ -27,7 +28,8 @@
             Placeholder="Email"
             BackgroundColor="{StaticResource halvanyszurke}"
             PlaceholderColor="Grey"
-            TextChanged="Entry_TextChanged"/>
+            TextChanged="Entry_TextChanged"
+            TextColor="Black"/>
 
             <Entry
             x:Name="passwordEntry"
@@ -40,7 +42,8 @@
             Placeholder="Jelszó"
             BackgroundColor="{StaticResource halvanyszurke}"
             PlaceholderColor="Grey"
-            TextChanged="Entry_TextChanged"/>
+            TextChanged="Entry_TextChanged"
+            TextColor="Black"/>
 
             <Button
             x:Name="button_Bejelentkezes"
@@ -53,7 +56,7 @@
             TextColor="Black"
             FontSize="16"
             IsEnabled="False"/>
-            
+
             <Button
             x:Name="button_ElfelejtJelszo"
             Text="Elfelejtett jelszó"
