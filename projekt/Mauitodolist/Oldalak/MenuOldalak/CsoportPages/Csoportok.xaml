@@ -88,7 +88,8 @@
                            Grid.Row="0"
                            Grid.ColumnSpan="2"
                            FontAttributes="Bold"
-                           FontSize="Large" />
+                           FontSize="Large"
+                           TextColor="Black"/>
 
                                 <Label Text="{Binding Csoportkeszito}"
                            HorizontalOptions="Center"
