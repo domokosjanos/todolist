@@ -215,15 +215,5 @@ public partial class Feladataim : ContentPage
             }
         }
     }
-    public async void BetoltesFeladatok()
-    {
-        var connection = DBcsatlakozas.CreateConnection();
-
-        var feladatok = await connection.Table<Feladat>()
-                                       .Where(f => f.FHO_id == FHO_id)
-                                       .ToListAsync();
-
-        FeladatokListView.ItemsSource = feladatok;
-    }
 
 }
