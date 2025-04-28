@@ -10,12 +10,12 @@ public partial class Csoportkeszit : ContentPage
     public Viewmodel_FHO viewmodelFHO = new Viewmodel_FHO();
     //public Viewmodel_CSPT viewmodelCSPT = new Viewmodel_CSPT();
     private List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
-    
+
 
     public Csoportkeszit(int id)
-	{
-		InitializeComponent();
-        var felhasznalo = viewmodelFHO.Felhasznalok.FirstOrDefault(x=>x.Id == id);
+    {
+        InitializeComponent();
+        var felhasznalo = viewmodelFHO.Felhasznalok.FirstOrDefault(x => x.Id == id);
         if (felhasznalo != null)
         {
             // Ha létezik a felhasználó, beállítjuk az Aktfelhasznalo-t
@@ -25,7 +25,7 @@ public partial class Csoportkeszit : ContentPage
 
         BetoltesFelhasznalok();
 
-	}
+    }
 
     private async void BetoltesFelhasznalok()
     {
@@ -49,11 +49,12 @@ public partial class Csoportkeszit : ContentPage
 
     private async void button_Letrehoz_Clicked_1(object sender, EventArgs e)
     {
-        
         // Az Entry mezõ értéke
-        NevVisszaJelez.IsVisible = false;
-        var formazottNev = "";
-        if (csoportentry.Text.Any(char.IsWhiteSpace) == false)
+        var formazottNev = csoportentry.Text.Replace(" ", "");
+        var csoportNev = formazottNev;
+
+        // Ellenõrizd, hogy van-e szöveg
+        if (string.IsNullOrEmpty(csoportNev))
         {
             await DisplayAlert("Hiba", "A csoport neve nem lehet üres.", "OK");
             return;

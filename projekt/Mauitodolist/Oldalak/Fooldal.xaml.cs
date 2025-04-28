@@ -11,12 +11,11 @@ public partial class Fooldal : ContentPage
 {
     static int FHO_id;
     static Szolgaltatas szolgaltatas = new Szolgaltatas();
-    private Viewmodel_FHO Viewmodel_FHO = new Viewmodel_FHO();
-    
+    private Dictionary<int, Felhasznalo> Felhasznalok = new Dictionary<int, Felhasznalo>();
     public Fooldal(int id)
-	{
+    {
         var felhasznalok = szolgaltatas.GetTableData<Felhasznalo>().ToList();
-        Viewmodel_FHO.Aktfelhasznalo = felhasznalok.Find(x=>x.Id == id);
+        Felhasznalok = felhasznalok.ToDictionary(x => x.Id);
         InitializeComponent();
         FHO_id = id;
         FnevUdvozlo.Text = $"Üdvözöllek, {felhasznalok[id - 1].Fnev}!";
@@ -75,5 +74,5 @@ public partial class Fooldal : ContentPage
         await Navigation.PushAsync(new Profilok(FHO_id));
     }
 
-    
+
 }
