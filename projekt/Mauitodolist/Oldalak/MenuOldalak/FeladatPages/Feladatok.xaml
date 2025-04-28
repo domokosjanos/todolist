@@ -8,11 +8,11 @@
         StrokeShape="RoundRectangle 40,40,40,40"
         Background="White"
         Margin="10,10,10,10">
-        
+
         <Grid
             RowDefinitions=".1*,.1*,.1*,.1*,.6*,.1*"
             ColumnDefinitions=".1*,.1*,.1*,.1*">
-            
+
             <Button 
                 x:Name="fooldal"
                 ImageSource="fooldalkep.png"

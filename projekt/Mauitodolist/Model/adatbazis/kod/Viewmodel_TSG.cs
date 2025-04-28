@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MauiToDoList.Model.adatbazis.kod
 {
     [AddINotifyPropertyChangedInterface]
-    class Viewmodel_TSG
+    public class Viewmodel_TSG
     {
         public List<Tag> Tagok { get; set; } = new List<Tag>();
         private Szolgaltatas Szolgaltatas = new Szolgaltatas();

@@ -17,13 +17,12 @@
                 TextColor="Black"
                 />
 
-
             <Entry
                 x:Name="csoportentry"
                 WidthRequest="250"
                 FontSize="20"
                 FontFamily="NexaLight"
-                Grid.Row="1"
+                Grid.Row="2"
                 Margin="10"
                 Placeholder="Csoport neve:"
                 BackgroundColor="{StaticResource halvanyszurke}"

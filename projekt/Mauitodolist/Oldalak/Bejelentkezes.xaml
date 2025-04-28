@@ -56,7 +56,7 @@
             TextColor="Black"
             FontSize="16"
             IsEnabled="False"/>
-            
+
             <Button
             x:Name="button_ElfelejtJelszo"
             Text="Elfelejtett jelszó"

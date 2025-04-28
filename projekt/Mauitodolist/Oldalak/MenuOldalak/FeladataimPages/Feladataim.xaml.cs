@@ -71,21 +71,21 @@ public partial class Feladataim : ContentPage
     {
         var connection = DBcsatlakozas.CreateConnection();
 
-        // Lekérjük a felhasználó csoporttagságait
+        // Lekï¿½rjï¿½k a felhasznï¿½lï¿½ csoporttagsï¿½gait
         var csoporttagsagok = await connection.Table<Tag>()
             .Where(ct => ct.FHO_id == FHO_id)
             .ToListAsync();
 
         var csoportnevek = csoporttagsagok.Select(ct => ct.Csoportnev).ToList();
 
-        // Lekérjük azokat a feladatokat, amiket õ hozott létre vagy a csoportjainak lettek kiosztva
+        // Lekï¿½rjï¿½k azokat a feladatokat, amiket ï¿½ hozott lï¿½tre vagy a csoportjainak lettek kiosztva
         var feladatok = await connection.Table<Feladat>().ToListAsync();
 
         var sajatFeladatok = feladatok
             .Where(f => f.FHO_id == FHO_id || csoportnevek.Contains(f.CSPT_nev))
             .ToList();
 
-        // ListView vagy CollectionView-hoz adhatod hozzá
+        // ListView vagy CollectionView-hoz adhatod hozzï¿½
         FeladatokListView.ItemsSource = sajatFeladatok;
     }
 
@@ -101,15 +101,15 @@ public partial class Feladataim : ContentPage
 
         if (csoporttagsagok.Any() && feladat.FHO_id != FHO_id)
         {
-            feladat.Allapot = !feladat.Allapot; // Állapot váltás (pl. készre jelölés)
+            feladat.Allapot = !feladat.Allapot; // ï¿½llapot vï¿½ltï¿½s (pl. kï¿½szre jelï¿½lï¿½s)
             await connection.UpdateAsync(feladat);
 
-            // Frissítjük a ListView-t
+            // Frissï¿½tjï¿½k a ListView-t
             await BetoltesFeladatok();
         }
         else
         {
-            await DisplayAlert("Hiba", "Nem módosíthatja ezt a feladatot!", "OK");
+            await DisplayAlert("Hiba", "Nem mï¿½dosï¿½thatja ezt a feladatot!", "OK");
         }
     }
 
@@ -120,7 +120,7 @@ public partial class Feladataim : ContentPage
 
         if (feladat != null)
         {
-            // Tiltsuk le a gombot a többszöri kattintás elkerülése érdekében
+            // Tiltsuk le a gombot a tï¿½bbszï¿½ri kattintï¿½s elkerï¿½lï¿½se ï¿½rdekï¿½ben
             gomb.IsEnabled = false;
 
             try
@@ -130,20 +130,20 @@ public partial class Feladataim : ContentPage
                     .Where(t => t.FHO_id == FHO_id && t.Csoportnev == feladat.CSPT_nev)
                     .ToListAsync();
 
-                if (csoporttagsagok.Any() || feladat.FHO_id == FHO_id) // Ha tag vagy a létrehozó
+                if (csoporttagsagok.Any() || feladat.FHO_id == FHO_id) // Ha tag vagy a lï¿½trehozï¿½
                 {
-                    feladat.Allapot = true; // Feladat állapotának beállítása "kész"-re
+                    feladat.Allapot = true; // Feladat ï¿½llapotï¿½nak beï¿½llï¿½tï¿½sa "kï¿½sz"-re
                     await connection.UpdateAsync(feladat);
-                    await BetoltesFeladatok(); // Frissítjük a listát
+                    await BetoltesFeladatok(); // Frissï¿½tjï¿½k a listï¿½t
                 }
                 else
                 {
-                    await DisplayAlert("Hiba", "Nem módosíthatja ezt a feladatot!", "OK");
+                    await DisplayAlert("Hiba", "Nem mï¿½dosï¿½thatja ezt a feladatot!", "OK");
                 }
             }
             finally
             {
-                // A lista frissítése után újra engedélyezhetjük a gombot
+                // A lista frissï¿½tï¿½se utï¿½n ï¿½jra engedï¿½lyezhetjï¿½k a gombot
                 gomb.IsEnabled = true;
             }
         }
@@ -156,7 +156,7 @@ public partial class Feladataim : ContentPage
 
         if (feladat != null)
         {
-            // Tiltsuk le a gombot a többszöri kattintás elkerülése érdekében
+            // Tiltsuk le a gombot a tï¿½bbszï¿½ri kattintï¿½s elkerï¿½lï¿½se ï¿½rdekï¿½ben
             gomb.IsEnabled = false;
 
             try
@@ -166,20 +166,20 @@ public partial class Feladataim : ContentPage
                     .Where(t => t.FHO_id == FHO_id && t.Csoportnev == feladat.CSPT_nev)
                     .ToListAsync();
 
-                if (csoporttagsagok.Any() || feladat.FHO_id == feladat.FHO_id) // Ha tag vagy a létrehozó
+                if (csoporttagsagok.Any() || feladat.FHO_id == feladat.FHO_id) // Ha tag vagy a lï¿½trehozï¿½
                 {
-                    feladat.Allapot = false; // Feladat állapotának beállítása "nem kész"-re
+                    feladat.Allapot = false; // Feladat ï¿½llapotï¿½nak beï¿½llï¿½tï¿½sa "nem kï¿½sz"-re
                     await connection.UpdateAsync(feladat);
-                    await BetoltesFeladatok(); // Frissítjük a listát
+                    await BetoltesFeladatok(); // Frissï¿½tjï¿½k a listï¿½t
                 }
                 else
                 {
-                    await DisplayAlert("Hiba", "Nem módosíthatja ezt a feladatot!", "OK");
+                    await DisplayAlert("Hiba", "Nem mï¿½dosï¿½thatja ezt a feladatot!", "OK");
                 }
             }
             finally
             {
-                // A lista frissítése után újra engedélyezhetjük a gombot
+                // A lista frissï¿½tï¿½se utï¿½n ï¿½jra engedï¿½lyezhetjï¿½k a gombot
                 gomb.IsEnabled = true;
             }
         }
@@ -194,28 +194,36 @@ public partial class Feladataim : ContentPage
 
         if (feladat != null)
         {
-            // Ellenõrizzük, hogy a bejelentkezett felhasználó hozta-e létre a feladatot
+            // Ellenï¿½rizzï¿½k, hogy a bejelentkezett felhasznï¿½lï¿½ hozta-e lï¿½tre a feladatot
             if (feladat.FHO_id == FHO_id)
             {
-                bool valasz = await DisplayAlert("Törlés megerõsítése", $"Biztosan törölni szeretnéd a következõ feladatot: '{feladat.Cim}'?", "Igen", "Nem");
+                bool valasz = await DisplayAlert("Tï¿½rlï¿½s megerï¿½sï¿½tï¿½se", $"Biztosan tï¿½rï¿½lni szeretnï¿½d a kï¿½vetkezï¿½ feladatot: '{feladat.Cim}'?", "Igen", "Nem");
 
                 if (valasz)
                 {
                     var connection = DBcsatlakozas.CreateConnection();
                     await connection.DeleteAsync(feladat);
 
-                    // Frissítjük a ListView-t
+                    // Frissï¿½tjï¿½k a ListView-t
                     await BetoltesFeladatok();
                 }
-                // Ha a felhasználó a "Nem" gombra kattintott, semmi nem történik
+                // Ha a felhasznï¿½lï¿½ a "Nem" gombra kattintott, semmi nem tï¿½rtï¿½nik
             }
             else
             {
-                await DisplayAlert("Hozzáférés megtagadva", "Csak a feladat létrehozója törölheti azt.", "OK");
+                await DisplayAlert("Hozzï¿½fï¿½rï¿½s megtagadva", "Csak a feladat lï¿½trehozï¿½ja tï¿½rï¿½lheti azt.", "OK");
             }
         }
     }
+    public async void BetoltesFeladatok()
+    {
+        var connection = DBcsatlakozas.CreateConnection();
 
+        var feladatok = await connection.Table<Feladat>()
+                                       .Where(f => f.FHO_id == FHO_id)
+                                       .ToListAsync();
 
+        FeladatokListView.ItemsSource = feladatok;
+    }
 
 }

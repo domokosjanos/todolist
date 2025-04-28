@@ -18,7 +18,7 @@ public partial class Csoportkeszit : ContentPage
         var felhasznalo = viewmodelFHO.Felhasznalok.FirstOrDefault(x=>x.Id == id);
         if (felhasznalo != null)
         {
-            // Ha lÈtezik a felhaszn·lÛ, be·llÌtjuk az Aktfelhasznalo-t
+            // Ha l√©tezik a felhaszn√°l√≥, be√°ll√≠tjuk az Aktfelhasznalo-t
             viewmodelFHO.Aktfelhasznalo = felhasznalo;
         }
         FHO_id = id;
@@ -32,14 +32,14 @@ public partial class Csoportkeszit : ContentPage
         var connection = DBcsatlakozas.CreateConnection();
         var felhasznalokLista = await connection.Table<Felhasznalo>().ToListAsync();
 
-        // Sz˚rj¸k a list·t, hogy ne tartalmazza az aktu·lisan bejelentkezett felhaszn·lÛt
+        // Sz√ªrj√ºk a list√°t, hogy ne tartalmazza az aktu√°lisan bejelentkezett felhaszn√°l√≥t
         var szurtFelhasznalokLista = felhasznalokLista.Where(f => f.Id != FHO_id).ToList();
 
-        // Az IsSelected property be·llÌt·sa a sz˚rt list·ban
-        szurtFelhasznalokLista.ForEach(f => f.IsSelected = false); // AlapÈrtelmezett ·llapot: nem kiv·lasztott
+        // Az IsSelected property be√°ll√≠t√°sa a sz√ªrt list√°ban
+        szurtFelhasznalokLista.ForEach(f => f.IsSelected = false); // Alap√©rtelmezett √°llapot: nem kiv√°lasztott
 
-        felhasznalok = szurtFelhasznalokLista; // Felhaszn·lÛk sz˚rt lista mentÈse
-        FelhasznaloCollectionView.ItemsSource = szurtFelhasznalokLista; // A CollectionView frissÌtÈse a sz˚rt list·val
+        felhasznalok = szurtFelhasznalokLista; // Felhaszn√°l√≥k sz√ªrt lista ment√©se
+        FelhasznaloCollectionView.ItemsSource = szurtFelhasznalokLista; // A CollectionView friss√≠t√©se a sz√ªrt list√°val
     }
 
     private void csoportentry_TextChanged(object sender, TextChangedEventArgs e)
@@ -49,14 +49,13 @@ public partial class Csoportkeszit : ContentPage
 
     private async void button_Letrehoz_Clicked_1(object sender, EventArgs e)
     {
-        // Az Entry mezı ÈrtÈke
-        var formazottNev = csoportentry.Text.Replace(" ", "");
-        var csoportNev = formazottNev;
-
-        // Ellenırizd, hogy van-e szˆveg
-        if (string.IsNullOrEmpty(csoportNev))
+        
+        // Az Entry mez√µ √©rt√©ke
+        NevVisszaJelez.IsVisible = false;
+        var formazottNev = "";
+        if (csoportentry.Text.Any(char.IsWhiteSpace) == false)
         {
-            await DisplayAlert("Hiba", "A csoport neve nem lehet ¸res.", "OK");
+            await DisplayAlert("Hiba", "A csoport neve nem lehet √ºres.", "OK");
             return;
         }
 
@@ -64,7 +63,7 @@ public partial class Csoportkeszit : ContentPage
         {
             Csoportnev = csoportNev,
             Csoportkeszito = viewmodelFHO.Aktfelhasznalo.Fnev,
-            Letszam = 0 // Kezdeti lÈtsz·m a kÈszÌtıvel
+            Letszam = 0 // Kezdeti l√©tsz√°m a k√©sz√≠t√µvel
         };
 
         var connection = DBcsatlakozas.CreateConnection();
@@ -75,15 +74,15 @@ public partial class Csoportkeszit : ContentPage
 
         if (csoport == null)
         {
-            await DisplayAlert("Hiba", "A csoportot nem siker¸lt lÈtrehozni.", "OK");
+            await DisplayAlert("Hiba", "A csoportot nem siker√ºlt l√©trehozni.", "OK");
             return;
         }
 
         await connection.CreateTableAsync<Tag>();
 
-        int letszam = 0; // Kezdj¸k a lÈtsz·mot a csoport kÈszÌtıjÈvel (1)
+        int letszam = 0; // Kezdj√ºk a l√©tsz√°mot a csoport k√©sz√≠t√µj√©vel (1)
 
-        // A csoport kÈszÌtıjÈnek hozz·ad·sa a Tag t·bl·hoz
+        // A csoport k√©sz√≠t√µj√©nek hozz√°ad√°sa a Tag t√°bl√°hoz
         var keszitoTag = new Tag
         {
             FHO_id = FHO_id,
@@ -91,11 +90,11 @@ public partial class Csoportkeszit : ContentPage
             Jogosultsag = true
         };
         await connection.InsertAsync(keszitoTag);
-        letszam++; // Nˆvelj¸k a lÈtsz·mot a kÈszÌtıvel
+        letszam++; // N√∂velj√ºk a l√©tsz√°mot a k√©sz√≠t√µvel
 
-        // A kiv·lasztott felhaszn·lÛk beillesztÈse a Tag t·bl·ba
+        // A kiv√°lasztott felhaszn√°l√≥k beilleszt√©se a Tag t√°bl√°ba
         var kijeloltFelhasznalok = felhasznalok.Where(f => f.IsSelected).ToList();
-        letszam += kijeloltFelhasznalok.Count; // A kiv·lasztott felhaszn·lÛk sz·m·nak hozz·ad·sa
+        letszam += kijeloltFelhasznalok.Count; // A kiv√°lasztott felhaszn√°l√≥k sz√°m√°nak hozz√°ad√°sa
 
         foreach (var felhasznalo in kijeloltFelhasznalok)
         {
@@ -103,16 +102,16 @@ public partial class Csoportkeszit : ContentPage
             {
                 FHO_id = felhasznalo.Id,
                 CSPT_id = csoport.Id,
-                Jogosultsag = false // Az alapÈrtelmezett jogosults·g
+                Jogosultsag = false // Az alap√©rtelmezett jogosults√°g
             };
             await connection.InsertAsync(ujTag);
         }
 
-        // FrissÌtj¸k a csoport lÈtsz·m·t
+        // Friss√≠tj√ºk a csoport l√©tsz√°m√°t
         csoport.Letszam = letszam;
-        await connection.UpdateAsync(csoport); // A csoport lÈtsz·m·nak frissÌtÈse
+        await connection.UpdateAsync(csoport); // A csoport l√©tsz√°m√°nak friss√≠t√©se
 
-        await DisplayAlert("Siker", "A csoport lÈtrehoz·sa sikeres volt.", "OK");
+        await DisplayAlert("Siker", "A csoport l√©trehoz√°sa sikeres volt.", "OK");
         await Navigation.PushAsync(new Csoportok(FHO_id));
 
     }

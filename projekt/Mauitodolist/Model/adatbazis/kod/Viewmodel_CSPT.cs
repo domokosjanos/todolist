@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MauiToDoList.Model.adatbazis.kod
 {
     [AddINotifyPropertyChangedInterface]
-    class Viewmodel_CSPT
+    public class Viewmodel_CSPT
     {
         public List<Csoport> Csoportok { get; set; } = new List<Csoport>();
         private Szolgaltatas Szolgaltatas = new Szolgaltatas();

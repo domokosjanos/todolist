@@ -11,29 +11,15 @@ public partial class Fooldal : ContentPage
 {
     static int FHO_id;
     static Szolgaltatas szolgaltatas = new Szolgaltatas();
-    private Dictionary<int, Felhasznalo> Felhasznalok = new Dictionary<int, Felhasznalo>();
-    /*
-    <CollectionView x:Name="FelhasznaloDataGrid" ItemsSource="{Binding}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Border StrokeShape="RoundRectangle 10,10,10,10">
-                    <Grid ColumnDefinitions="*">
-                        <Label Text="{Binding Fnev}" VerticalOptions="Center"/>
-                        <Label Text="{Binding Vnev}" VerticalOptions="Center"/>
-                        <Label Text="{Binding Email}" VerticalOptions="Center"/>
-                    </Grid>
-                </Border>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
-    */
+    private Viewmodel_FHO Viewmodel_FHO = new Viewmodel_FHO();
+    
     public Fooldal(int id)
 	{
         var felhasznalok = szolgaltatas.GetTableData<Felhasznalo>().ToList();
-        Felhasznalok = felhasznalok.ToDictionary(x => x.Id);
+        Viewmodel_FHO.Aktfelhasznalo = felhasznalok.Find(x=>x.Id == id);
         InitializeComponent();
         FHO_id = id;
-        FnevUdvozlo.Text = $"Üdvözöllek, {felhasznalok[id - 1].Fnev}!";
+        FnevUdvozlo.Text = $"ÃœdvÃ¶zÃ¶llek, {felhasznalok[id - 1].Fnev}!";
         if (Felhasznalok.ContainsKey(id))
         {
             var felhasznalo = new List<Felhasznalo> { Felhasznalok[id] };
