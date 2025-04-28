@@ -32,11 +32,14 @@ public partial class Csoportkeszit : ContentPage
         var connection = DBcsatlakozas.CreateConnection();
         var felhasznalokLista = await connection.Table<Felhasznalo>().ToListAsync();
 
-        // Az IsSelected property már létezik a Felhasznalo osztályban
-        felhasznalokLista.ForEach(f => f.IsSelected = false); // Alapértelmezett állapot: nem kiválasztott
+        // Szûrjük a listát, hogy ne tartalmazza az aktuálisan bejelentkezett felhasználót
+        var szurtFelhasznalokLista = felhasznalokLista.Where(f => f.Id != FHO_id).ToList();
 
-        felhasznalok = felhasznalokLista; // Felhasználók lista mentése a megfelelõ helyre
-        FelhasznaloCollectionView.ItemsSource = felhasznalokLista; // A CollectionView frissítése
+        // Az IsSelected property beállítása a szûrt listában
+        szurtFelhasznalokLista.ForEach(f => f.IsSelected = false); // Alapértelmezett állapot: nem kiválasztott
+
+        felhasznalok = szurtFelhasznalokLista; // Felhasználók szûrt lista mentése
+        FelhasznaloCollectionView.ItemsSource = szurtFelhasznalokLista; // A CollectionView frissítése a szûrt listával
     }
 
     private void csoportentry_TextChanged(object sender, TextChangedEventArgs e)

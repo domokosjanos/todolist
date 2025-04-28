@@ -20,5 +20,7 @@ namespace MauiToDoList.Model.adatbazis.tablak
         public int CSPT_id { get; set; }
         [NotNull]
         public Boolean Jogosultsag { get; set; }
+        [NotNull]
+        public string Csoportnev { get; set; } = "";
     }
 }

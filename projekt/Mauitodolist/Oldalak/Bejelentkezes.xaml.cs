@@ -67,11 +67,18 @@ public partial class Bejelentkezes : ContentPage
         button_Bejelentkezes.IsEnabled = !string.IsNullOrWhiteSpace(emailEntry.Text) && !string.IsNullOrWhiteSpace(passwordEntry.Text);
     }
     // Itt történik a bejelentkezés lebonyolítása
-    private void button_Bejelentkezes_Clicked(object sender, EventArgs e)
+    private async void button_Bejelentkezes_Clicked(object sender, EventArgs e)
     {
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
         if (Ellenorzes())
         {
-            Navigation.PushAsync(new Fooldal(id));
+           await Navigation.PushAsync(new Fooldal(id));
         }
     }
 
@@ -80,9 +87,16 @@ public partial class Bejelentkezes : ContentPage
 
     }
 
-    private void button_Register_Clicked(object sender, EventArgs e)
+    private async void button_Register_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Regisztracio());
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Regisztracio());
     }
 
     

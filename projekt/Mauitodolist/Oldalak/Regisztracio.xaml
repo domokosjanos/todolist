@@ -26,6 +26,7 @@
                     PlaceholderColor="Grey"
                     FontFamily="NexaLight"
                     TextChanged="Entry_TextChanged"
+                    TextColor="Black"
                     />
                     
                 <Entry
@@ -38,6 +39,7 @@
                     PlaceholderColor="Grey"
                     FontFamily="NexaLight"
                     TextChanged="Entry_TextChanged"
+                    TextColor="Black"
                     />
                 <Entry
                     x:Name="harmadikNevEntry"
@@ -48,6 +50,7 @@
                     BackgroundColor="{StaticResource halvanyszurke}"
                     PlaceholderColor="Grey"
                     FontFamily="NexaLight"
+                    TextColor="Black"
                     />
 
                 <HorizontalStackLayout 
@@ -69,6 +72,7 @@
                         BackgroundColor="{StaticResource halvanyszurke}"
                         FontFamily="NexaLight"
                         DateSelected="szuletesDatePicker_DateSelected"
+                        TextColor="Black"
                     />
                 </HorizontalStackLayout>
                 
@@ -82,6 +86,7 @@
                     PlaceholderColor="Grey"
                     FontFamily="NexaLight"
                     TextChanged="Entry_TextChanged"
+                    TextColor="Black"
                     />
                 
                 <Entry
@@ -95,6 +100,7 @@
                     PlaceholderColor="Grey"
                     FontFamily="NexaLight"
                     TextChanged="Entry_TextChanged"
+                    TextColor="Black"
                     />
                 
                 <Entry
@@ -107,6 +113,7 @@
                     PlaceholderColor="Grey"
                     FontFamily="NexaLight"
                     TextChanged="Entry_TextChanged"
+                    TextColor="Black"
                     />
                 
                 <Entry
@@ -119,6 +126,7 @@
                     PlaceholderColor="Grey"
                     FontFamily="NexaLight"
                     TextChanged="Telefon_TextChanged"
+                    TextColor="Black"
                     />
                 
                 <Button

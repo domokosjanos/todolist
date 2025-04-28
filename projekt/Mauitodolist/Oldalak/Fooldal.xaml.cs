@@ -33,6 +33,7 @@ public partial class Fooldal : ContentPage
         Felhasznalok = felhasznalok.ToDictionary(x => x.Id);
         InitializeComponent();
         FHO_id = id;
+        FnevUdvozlo.Text = $"Üdvözöllek, {felhasznalok[id - 1].Fnev}!";
         if (Felhasznalok.ContainsKey(id))
         {
             var felhasznalo = new List<Felhasznalo> { Felhasznalok[id] };
@@ -40,24 +41,52 @@ public partial class Fooldal : ContentPage
         }
     }
 
-    private void Button_feladataim_Clicked(object sender, EventArgs e)
+    private async void Button_feladataim_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Feladataim(FHO_id));
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Feladataim(FHO_id));
     }
 
-    private void Button_csoportok_Clicked(object sender, EventArgs e)
+    private async void Button_csoportok_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Csoportok(FHO_id));
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Csoportok(FHO_id));
     }
 
-    private void Button_feladatkeszit_Clicked(object sender, EventArgs e)
+    private async void Button_feladatkeszit_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Feladatok(FHO_id));
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Feladatok(FHO_id));
     }
 
-    private void Button_profilom_Clicked(object sender, EventArgs e)
+    private async void Button_profilom_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Profilok(FHO_id));
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Profilok(FHO_id));
     }
 
     

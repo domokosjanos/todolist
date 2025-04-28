@@ -15,18 +15,18 @@ namespace MauiToDoList.Model.adatbazis.tablak
         [PrimaryKey, AutoIncrement]
         public int Id {  get; set; }
         [NotNull]
-        public string Vnev { get; set; }
+        public string Vnev { get; set; } = "";
         [NotNull]
-        public string Knev { get; set; }
-        public string? Hnev { get; set; }
+        public string Knev { get; set; } = "";
+        public string? Hnev { get; set; } 
         [NotNull]
         public DateTime Szul_ido { get; set; } = DateTime.Now.AddYears(-7);
         [NotNull, Unique]
-        public string Fnev { get; set; }
+        public string Fnev { get; set; } = "";
         [NotNull]
-        public string Jelszo { get; set; }
+        public string Jelszo { get; set; } = "";
         [NotNull, Unique]
-        public string Email { get; set; }
+        public string Email { get; set; } = "";
 
         public bool IsSelected { get; set; } //próbának
         public string? Tszam { get; set; }

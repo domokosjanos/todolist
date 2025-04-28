@@ -31,26 +31,54 @@ public partial class Profilok : ContentPage
     }
 
 
-    private void Buttonfooldal_Clicked(object sender, EventArgs e)
+    private async void Buttonfooldal_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Fooldal(FHO_id));
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Fooldal(FHO_id));
     }
 
     
 
-    private void csoport_Clicked(object sender, EventArgs e)
+    private async void csoport_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Csoportok(FHO_id));
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Csoportok(FHO_id));
     }
 
-    private void feladat_keszit_Clicked(object sender, EventArgs e)
+    private async void feladat_keszit_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Feladatok(FHO_id));
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Feladatok(FHO_id));
     }
 
-    private void Ujfeladat_Clicked(object sender, EventArgs e)
+    private async void Ujfeladat_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Feladataim(FHO_id));
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Feladataim(FHO_id));
     }
 
     private async void kijelentkezes_Clicked(object sender, EventArgs e)

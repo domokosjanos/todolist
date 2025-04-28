@@ -1,20 +1,28 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiToDoList.Oldalak.MenuPages.FeladataimPages.Feladataim"
-             Title="Feladataim" BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False">
+             Title="Feladataim" BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False"
+             xmlns:local="clr-namespace:MauiToDoList.Oldalak.MenuPages.FeladataimPages">
     <Border StrokeShape="RoundRectangle 40,40,40,40" Background="White" Margin="10,10,10,10">
         <Grid
             RowDefinitions=".1*,.8*,.1*"
             ColumnDefinitions=".1*,.1*,.1*,.1*">
-            <Button 
+            <Button
                 ImageSource="fooldalkep.png"
                 BackgroundColor="{StaticResource pumpkinorange}"
                 Margin="2"
                 Padding="2"
                 Clicked="Buttonfooldal_Clicked"
-                />
-            <Button 
+                >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
+            <Button
                 x:Name="feladat_keszit"
                 Grid.Column="1"
                 ImageSource="feladat_keszit.png"
@@ -22,8 +30,16 @@
                 Margin="2"
                 Padding="2"
                 Clicked="feladat_keszit_Clicked"
-                />
-            <Button 
+                >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
+            <Button
                 x:Name="csoport"
                 Grid.Column="2"
                 ImageSource="csoport5.png"
@@ -31,8 +47,16 @@
                 Margin="2"
                 Padding="2"
                 Clicked="csoport_Clicked"
-                />
-            <Button 
+                >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
+            <Button
                 x:Name="profil"
                 Grid.Column="3"
                 ImageSource="profil2_2.png"
@@ -40,28 +64,55 @@
                 Margin="2"
                 Padding="6"
                 Clicked="profil_Clicked"
-                />
+                >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
             <ListView
                 x:Name="FeladatokListView"
                 Grid.Row="1"
                 Grid.ColumnSpan="4"
                 Margin="10"
-                BackgroundColor="White"
-                >
-
+                BackgroundColor="Transparent"
+                SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10">
-                                <Label Text="{Binding Cim}" FontSize="20" FontAttributes="Bold"/>
-                                <Label Text="{Binding Leiras}" FontSize="15" TextColor="Black"/>
-                                <Label Text="{Binding CSPT_nev}" FontSize="15" TextColor="DarkOrange"/>
-                            </StackLayout>
+                            <Border Padding="15" Margin="5" StrokeShape="RoundRectangle 15" BackgroundColor="White">
+                                <VerticalStackLayout Spacing="8">
+                                    <Label Text="{Binding Cim}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding Leiras}" FontSize="15" TextColor="Gray" />
+                                    <Label Text="{Binding CSPT_nev}" FontSize="14" TextColor="{StaticResource pumpkinorange}" />
+
+                                    <HorizontalStackLayout HorizontalOptions="End" Spacing="10" Margin="0,10,0,0">
+                                        <Button
+                                        Text="Kész"
+                                        Clicked="KeszFeladat_Clicked"
+                                        IsEnabled="{Binding Allapot, Converter={StaticResource InvertBoolConverter}}"
+                                        Style="{StaticResource allapotGombStilus}"
+                                        BackgroundColor="{Binding Allapot, ConverterParameter=Kesz}" />
+                                        <Button
+                                        Text="Nincs kész"
+                                        Clicked="NemKeszFeladat_Clicked"
+                                        IsEnabled="{Binding Allapot, Converter={StaticResource BoolConverter}}"
+                                        Style="{StaticResource allapotGombStilus}"
+                                        BackgroundColor="{Binding Allapot, ConverterParameter=NemKesz}" />
+                                        <Button
+                                        Text="Törlés"
+                                        Clicked="FeladatTorles_Clicked"
+                                        Style="{StaticResource torlesGombStilus}" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Border>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
         </Grid>
     </Border>
 </ContentPage>

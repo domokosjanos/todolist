@@ -2,18 +2,31 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiToDoList.Oldalak.Fooldal"
-             Title="Fooldal" BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False">
+             Title="Fooldal" BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False"
+             xmlns:maui="http://schemas.microsoft.com/dotnet/2021/maui">
 
-    <Border StrokeShape="RoundRectangle 40,40,40,40" Background="White" Margin="10,10,10,10">
+    
+
+
+    <Border StrokeShape="RoundRectangle 40,40,40,40" Background="White" Margin="10,10,10,10" >
+        <Border.Shadow>
+            <Shadow Brush="Black"
+                Offset="5,5"
+                Radius="10"
+                Opacity="0.3" />
+        </Border.Shadow>
+        
+
         <Grid RowDefinitions=".1*, .1*, .1*, .1*, .1*">
-            
-            <!--<Label Grid.Row="0"
+
+            <Label Grid.Row="0"
                Grid.ColumnSpan="2"
-               Text="{Binding Aktfelhasznalo.Fnev}"
                HorizontalTextAlignment="Center"
                FontSize="Large"
                Margin="15"
-                   /> -->
+               x:Name="FnevUdvozlo"
+               />
+
 
             <Button Grid.Row="1"
                     x:Name="Button_feladataim"
@@ -22,12 +35,24 @@
                     Margin="10" 
                     CornerRadius="30"
                     BackgroundColor="{StaticResource pumpkinorange}"
+                    
                     Clicked="Button_feladataim_Clicked"
                     ImageSource="feladatkesz2.png"
                     FontFamily="NexaHeavy"
-                    />
+                    
+                    >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                    Offset="5,5"
+                    Radius="10"
+                    Opacity="0.4" />
+                </Button.Shadow>
 
-            <Button Grid.Row="2"
+            </Button>
+
+
+
+            <Button Grid.Row="3"
                     x:Name="Button_csoportok"
                     Grid.Column="1"
                     Text="Csoportok"
@@ -37,9 +62,17 @@
                     Clicked="Button_csoportok_Clicked"
                     ImageSource="csoport5.png"
                     FontFamily="NexaHeavy"
-                    />
-            
-            <Button Grid.Row="3" 
+                    >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
+
+            <Button Grid.Row="2" 
                     x:Name="Button_feladatkeszit"
                     Text="Feladat készítés"
                     Margin="10"
@@ -49,7 +82,15 @@
                     ImageSource="feladat_keszit.png"
                     Padding="20"
                     FontFamily="NexaHeavy"
-                    />
+                    >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
 
             <Button Grid.Row="4"
                     x:Name="Button_profilom"
@@ -62,7 +103,15 @@
                     ImageSource="profil2_2.png" 
                     Padding="0,0,15,15"
                     FontFamily="NexaHeavy"
-                    />
+                    >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
         </Grid>
     </Border>
 

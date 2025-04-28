@@ -31,35 +31,38 @@
 
             <VerticalStackLayout Grid.Row="1" Grid.ColumnSpan="4" Margin="55">
                 <Label Text="Felhasználó név:"
-                FontFamily="Nexa-Heavy" FontSize="18" HorizontalTextAlignment="Center"/>
+                FontFamily="Nexa-Heavy" FontSize="18" HorizontalTextAlignment="Center"
+                       TextColor="Black"/>
                 <Label Text="{Binding Aktfelhasznalo.Fnev}"
-                 FontSize="18" HorizontalTextAlignment="Center"/>
+                 FontSize="18" HorizontalTextAlignment="Center"
+                       TextColor="Black"/>
 
                 <Label Text="Teljes név:"
-                FontFamily="Nexa-Heavy" FontSize="18" HorizontalTextAlignment="Center"/>
+                FontFamily="Nexa-Heavy" FontSize="18" HorizontalTextAlignment="Center"
+                       TextColor="Black"/>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
                     <Label Text="{Binding Aktfelhasznalo.Vnev}"
-           FontFamily="NexaExtraLight.ttf" FontSize="18" HorizontalTextAlignment="Center"/>
+           FontFamily="NexaExtraLight.ttf" FontSize="18" HorizontalTextAlignment="Center" TextColor="Black"/>
                     <Label Text="{Binding Aktfelhasznalo.Knev}"
-           FontFamily="NexaExtraLight.ttf" FontSize="18" HorizontalTextAlignment="Center"/>
+           FontFamily="NexaExtraLight.ttf" FontSize="18" HorizontalTextAlignment="Center" TextColor="Black"/>
                     <Label Text="{Binding Aktfelhasznalo.Hnev}"
-           FontFamily="NexaExtraLight.ttf" FontSize="18" HorizontalTextAlignment="Center"/>
+           FontFamily="NexaExtraLight.ttf" FontSize="18" HorizontalTextAlignment="Center" TextColor="Black"/>
                 </StackLayout>
 
                 <Label Text="Email-cím:" FontFamily="Nexa-Heavy"
-                FontSize="18" HorizontalTextAlignment="Center" />
+                FontSize="18" HorizontalTextAlignment="Center" TextColor="Black"/>
                 <Label Text="{Binding Aktfelhasznalo.Email}"
-                FontFamily="NexaExtraLight.ttf" FontSize="18" HorizontalTextAlignment="Center" />
+                FontFamily="NexaExtraLight.ttf" FontSize="18" HorizontalTextAlignment="Center" TextColor="Black"/>
 
                 <Label Text="Telefonszám:"
-                FontFamily="Nexa-Heavy" FontSize="18" HorizontalTextAlignment="Center" />
+                FontFamily="Nexa-Heavy" FontSize="18" HorizontalTextAlignment="Center" TextColor="Black"/>
 
                 <Label Text="{Binding Aktfelhasznalo.Tszam}"
-                FontFamily="NexaExtraLight.ttf" FontSize="18" HorizontalTextAlignment="Center" />
+                FontFamily="NexaExtraLight.ttf" FontSize="18" HorizontalTextAlignment="Center" TextColor="Black"/>
                 <Label Text="Születési dátum:"
-                FontFamily="Nexa-Heavy" FontSize="18" HorizontalTextAlignment="Center" />
+                FontFamily="Nexa-Heavy" FontSize="18" HorizontalTextAlignment="Center" TextColor="Black"/>
                 <Label Text="{Binding Aktfelhasznalo.Szul_ido, StringFormat='{0:yyyy-MM-dd}'}"
-                FontFamily="NexaExtraLight.ttf" FontSize="18" HorizontalTextAlignment="Center" />
+                FontFamily="NexaExtraLight.ttf" FontSize="18" HorizontalTextAlignment="Center" TextColor="Black"/>
 
             </VerticalStackLayout>
 
