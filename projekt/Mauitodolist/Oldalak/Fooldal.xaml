@@ -25,6 +25,7 @@
                FontSize="Large"
                Margin="15"
                x:Name="FnevUdvozlo"
+               TextColor="Black"
                />
 
 

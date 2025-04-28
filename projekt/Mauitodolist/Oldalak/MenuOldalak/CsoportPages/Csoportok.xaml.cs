@@ -75,7 +75,7 @@ public partial class Csoportok : ContentPage
             }
 
             // CollectionView frissítése
-            collectionCsoportok.ItemsSource = megjelenoCsoportok;
+            collectionCsoportok.ItemsSource = csoportLista;
         }
         catch (Exception ex)
         {
