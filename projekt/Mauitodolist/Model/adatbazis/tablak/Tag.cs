@@ -12,7 +12,7 @@ namespace MauiToDoList.Model.adatbazis.tablak
     [System.ComponentModel.DataAnnotations.Schema.Table("Tagsag")]
     public class Tag
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey,AutoIncrement]
         public int Id { get; set; }
         [NotNull]
         public int FHO_id { get; set; }
@@ -20,5 +20,7 @@ namespace MauiToDoList.Model.adatbazis.tablak
         public int CSPT_id { get; set; }
         [NotNull]
         public Boolean Jogosultsag { get; set; }
+        [NotNull]
+        public string Csoportnev { get; set; } = "";
     }
 }

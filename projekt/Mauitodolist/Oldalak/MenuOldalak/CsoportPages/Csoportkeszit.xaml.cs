@@ -8,7 +8,9 @@ public partial class Csoportkeszit : ContentPage
 {
     private int FHO_id;
     public Viewmodel_FHO viewmodelFHO = new Viewmodel_FHO();
-    public Viewmodel_CSPT viewmodelCSPT = new Viewmodel_CSPT();
+    //public Viewmodel_CSPT viewmodelCSPT = new Viewmodel_CSPT();
+    private List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
+    
 
     public Csoportkeszit(int id)
 	{
@@ -16,12 +18,29 @@ public partial class Csoportkeszit : ContentPage
         var felhasznalo = viewmodelFHO.Felhasznalok.FirstOrDefault(x=>x.Id == id);
         if (felhasznalo != null)
         {
-            // Ha lÈtezik a felhaszn·lÛ, be·llÌtjuk az Aktfelhasznalo-t
+            // Ha l√©tezik a felhaszn√°l√≥, be√°ll√≠tjuk az Aktfelhasznalo-t
             viewmodelFHO.Aktfelhasznalo = felhasznalo;
         }
         FHO_id = id;
 
+        BetoltesFelhasznalok();
+
 	}
+
+    private async void BetoltesFelhasznalok()
+    {
+        var connection = DBcsatlakozas.CreateConnection();
+        var felhasznalokLista = await connection.Table<Felhasznalo>().ToListAsync();
+
+        // Sz√ªrj√ºk a list√°t, hogy ne tartalmazza az aktu√°lisan bejelentkezett felhaszn√°l√≥t
+        var szurtFelhasznalokLista = felhasznalokLista.Where(f => f.Id != FHO_id).ToList();
+
+        // Az IsSelected property be√°ll√≠t√°sa a sz√ªrt list√°ban
+        szurtFelhasznalokLista.ForEach(f => f.IsSelected = false); // Alap√©rtelmezett √°llapot: nem kiv√°lasztott
+
+        felhasznalok = szurtFelhasznalokLista; // Felhaszn√°l√≥k sz√ªrt lista ment√©se
+        FelhasznaloCollectionView.ItemsSource = szurtFelhasznalokLista; // A CollectionView friss√≠t√©se a sz√ªrt list√°val
+    }
 
     private void csoportentry_TextChanged(object sender, TextChangedEventArgs e)
     {
@@ -31,72 +50,70 @@ public partial class Csoportkeszit : ContentPage
     private async void button_Letrehoz_Clicked_1(object sender, EventArgs e)
     {
         
-        // Az Entry mezı ÈrtÈke
+        // Az Entry mez√µ √©rt√©ke
         NevVisszaJelez.IsVisible = false;
         var formazottNev = "";
         if (csoportentry.Text.Any(char.IsWhiteSpace) == false)
         {
-            formazottNev = csoportentry.Text.Replace(" ", "_");
-            var csoportNev = formazottNev;
-
-            // Ellenırizd, hogy van-e szˆveg
-            if (string.IsNullOrEmpty(csoportNev))
-            {
-                // Ha nincs szˆveg, jelezd a felhaszn·lÛnak
-                await DisplayAlert("VisszajelzÈs", "A csoport neve nem lehet ¸res.", "OK");
-                return;
-            }
-
-            // ⁄j Csoport objektum lÈtrehoz·sa
-            var ujCsoport = new Csoport
-            {
-                Csoportnev = csoportNev,
-                Csoportkeszito = viewmodelFHO.Aktfelhasznalo.Fnev, // Ha sz¸ksÈges, itt ·llÌtsd be a felhaszn·lÛt
-                Letszam = 1 // Kezdeti lÈtsz·m, ezt kÈsıbb mÛdosÌthatod
-            };
-            await DisplayAlert("InfÛ", csoportNev, "OK");
-
-            // Aszinkron kapcsolat lÈtrehoz·sa Ès adatb·zisba mentÈs
-            var connection = DBcsatlakozas.CreateConnection();
-
-            // Csoport t·bla lÈtrehoz·sa, ha nem lÈtezik
-            await connection.CreateTableAsync<Csoport>();
-
-            // ⁄j csoport mentÈse
-            await connection.InsertAsync(ujCsoport);
-            viewmodelCSPT.Aktcsoport = await connection.Table<Csoport>().Where(x => x.Csoportnev == csoportNev).FirstOrDefaultAsync();
-            
-            await DisplayAlert("InfÛ2", viewmodelCSPT.Aktcsoport.Csoportnev, "OK");
-            
-            if(viewmodelCSPT.Aktcsoport == null)
-            {
-                await DisplayAlert("Hiba!", "Null ÈrtÈk", "A kenyÈrbe ezzel.");
-                return;
-            }
-            var ujTag = new Tag
-            {
-                FHO_id = FHO_id,
-                CSPT_id = viewmodelCSPT.Aktcsoport.Id,
-                Jogosultsag = true
-            };
-            //await connection.DropTableAsync<Tag>();  // RÈgi t·bla tˆrlÈse
-            //await connection.CreateTableAsync<Tag>(); // ⁄jra lÈtrehoz·s
-
-            await connection.CreateTableAsync<Tag>();
-
-            await connection.InsertAsync(ujTag);
-
-            // Navig·lj a Csoportok oldalra
-            await Navigation.PushAsync(new Csoportok());
-
-            
-        }
-        else
-        {
-            NevVisszaJelez.IsVisible = true;
+            await DisplayAlert("Hiba", "A csoport neve nem lehet √ºres.", "OK");
             return;
         }
-        
+
+        var ujCsoport = new Csoport
+        {
+            Csoportnev = csoportNev,
+            Csoportkeszito = viewmodelFHO.Aktfelhasznalo.Fnev,
+            Letszam = 0 // Kezdeti l√©tsz√°m a k√©sz√≠t√µvel
+        };
+
+        var connection = DBcsatlakozas.CreateConnection();
+        await connection.CreateTableAsync<Csoport>();
+        await connection.InsertAsync(ujCsoport);
+
+        var csoport = await connection.Table<Csoport>().FirstOrDefaultAsync(c => c.Csoportnev == csoportNev);
+
+        if (csoport == null)
+        {
+            await DisplayAlert("Hiba", "A csoportot nem siker√ºlt l√©trehozni.", "OK");
+            return;
+        }
+
+        await connection.CreateTableAsync<Tag>();
+
+        int letszam = 0; // Kezdj√ºk a l√©tsz√°mot a csoport k√©sz√≠t√µj√©vel (1)
+
+        // A csoport k√©sz√≠t√µj√©nek hozz√°ad√°sa a Tag t√°bl√°hoz
+        var keszitoTag = new Tag
+        {
+            FHO_id = FHO_id,
+            CSPT_id = csoport.Id,
+            Jogosultsag = true
+        };
+        await connection.InsertAsync(keszitoTag);
+        letszam++; // N√∂velj√ºk a l√©tsz√°mot a k√©sz√≠t√µvel
+
+        // A kiv√°lasztott felhaszn√°l√≥k beilleszt√©se a Tag t√°bl√°ba
+        var kijeloltFelhasznalok = felhasznalok.Where(f => f.IsSelected).ToList();
+        letszam += kijeloltFelhasznalok.Count; // A kiv√°lasztott felhaszn√°l√≥k sz√°m√°nak hozz√°ad√°sa
+
+        foreach (var felhasznalo in kijeloltFelhasznalok)
+        {
+            var ujTag = new Tag
+            {
+                FHO_id = felhasznalo.Id,
+                CSPT_id = csoport.Id,
+                Jogosultsag = false // Az alap√©rtelmezett jogosults√°g
+            };
+            await connection.InsertAsync(ujTag);
+        }
+
+        // Friss√≠tj√ºk a csoport l√©tsz√°m√°t
+        csoport.Letszam = letszam;
+        await connection.UpdateAsync(csoport); // A csoport l√©tsz√°m√°nak friss√≠t√©se
+
+        await DisplayAlert("Siker", "A csoport l√©trehoz√°sa sikeres volt.", "OK");
+        await Navigation.PushAsync(new Csoportok(FHO_id));
+
     }
 
     private void Button_Clicked(object sender, EventArgs e)

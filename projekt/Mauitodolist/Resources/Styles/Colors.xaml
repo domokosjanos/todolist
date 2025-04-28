@@ -32,8 +32,11 @@
     <Color x:Key="pumpkinorange">#FA7921</Color>
     <Color x:Key="darkerorange">#F45D01</Color>
     <Color x:Key="halvanyszurke">#E1E1E1</Color>
-    
-    
+
+    <Color x:Key="lightGray">#F0F0F0</Color>
+    <Color x:Key="primaryColor">#FF8C00</Color>
+    <Color x:Key="accentColor">#007BFF</Color>
+
 
     <!-- saját színek -->
 

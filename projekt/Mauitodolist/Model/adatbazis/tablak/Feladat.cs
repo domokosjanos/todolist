@@ -19,12 +19,14 @@ namespace MauiToDoList.Model.adatbazis.tablak
         public string Leiras { get; set; }
         [NotNull]
         public string Cim { get; set; }
-        public string? Hatarido { get; set; }
+        public string? Hatarido { get; set; } = "";
         [NotNull]
         public Boolean Allapot { get; set; }
         [NotNull]
         public string Feladat_letrejotte { get; set; }
         [NotNull]
         public int FHO_id { get; set; }
+  
+        public string CSPT_nev { get; set; } = "";
     }
 }

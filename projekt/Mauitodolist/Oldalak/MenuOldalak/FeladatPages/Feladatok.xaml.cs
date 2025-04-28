@@ -12,6 +12,23 @@ public partial class Feladatok : ContentPage
     {
         InitializeComponent();
         FHO_id = id;
+        BetoltesCsoportok();
+    }
+
+
+    private async void BetoltesCsoportok()
+    {
+        var connection = DBcsatlakozas.CreateConnection();
+
+        // Lekérjük az összes csoportot az adatbázisból
+        var csoportok = await connection.Table<Csoport>().ToListAsync();
+
+        // Listába mentjük a csoportok neveit
+        var csoportNevek = csoportok.Select(c => c.Csoportnev).ToList();
+
+        // A csoportneveket hozzárendeljük a Picker ItemsSource-jához
+        CsoportPicker.ItemsSource = csoportNevek;
+    }
 
         BetoltesCsoportok();
     }
@@ -21,41 +38,97 @@ public partial class Feladatok : ContentPage
     {
         var connection = DBcsatlakozas.CreateConnection();
 
-        // Lek�rj�k az �sszes csoportot az adatb�zisb�l
+        // Lekérjük az összes csoportot az adatbázisból
         var csoportok = await connection.Table<Csoport>().ToListAsync();
 
-        // List�ba mentj�k a csoportok neveit
+        // Listába mentjük a csoportok neveit
         var csoportNevek = csoportok.Select(c => c.Csoportnev).ToList();
 
-        // A csoportneveket hozz�rendelj�k a Picker ItemsSource-j�hoz
+        // A csoportneveket hozzárendeljük a Picker ItemsSource-jához
         CsoportPicker.ItemsSource = csoportNevek;
     }
 
-    private void Buttonfooldal_Clicked(object sender, EventArgs e)
+    private async void Buttonfooldal_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Fooldal(FHO_id));
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Fooldal(FHO_id));
     }
 
-    private void Ujfeladat_Clicked(object sender, EventArgs e)
+    private async void Ujfeladat_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Feladataim(FHO_id));
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Feladataim(FHO_id));
     }
 
-    private void csoport_Clicked(object sender, EventArgs e)
+    private async void csoport_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Csoportok(FHO_id));
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Csoportok(FHO_id));
     }
 
-    private void profil_Clicked(object sender, EventArgs e)
+    private async void profil_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new Profilok(FHO_id));
+        var button = sender as Button;
+
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 100, Easing.CubicIn);
+            await button.ScaleTo(1, 100, Easing.CubicOut);
+        }
+        await Navigation.PushAsync(new Profilok(FHO_id));
     }
 
     private async void Keszit_Clicked(object sender, EventArgs e)
     {
         if (string.IsNullOrWhiteSpace(CimEntry.Text) || string.IsNullOrWhiteSpace(feladatleiras.Text) || CsoportPicker.SelectedItem == null)
         {
-            await DisplayAlert("Hiba", "Minden mez?t ki kell t�lteni �s ki kell v�lasztani egy csoportot!", "OK");
+            await DisplayAlert("Hiba", "Minden mezõt ki kell tölteni és ki kell választani egy csoportot!", "OK");
+            return;
+        }
+
+        var connection = DBcsatlakozas.CreateConnection();
+        await connection.CreateTableAsync<Feladat>();
+
+        var ujFeladat = new Feladat
+        {
+            FHO_id = FHO_id,
+            CSPT_nev = CsoportPicker.SelectedItem.ToString(),
+            Cim = CimEntry.Text, 
+            Leiras = feladatleiras.Text,
+            Feladat_letrejotte = DateTime.Now.ToString()
+        };
+
+        await connection.InsertAsync(ujFeladat);
+
+        await DisplayAlert("Siker", "A feladat sikeresen létrejött!", "OK");
+
+        // Navigáció a Feladataim oldalra
+        await Navigation.PushAsync(new Feladataim(FHO_id));
+    }
+
+    private async void Keszit_Clicked(object sender, EventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(CimEntry.Text) || string.IsNullOrWhiteSpace(feladatleiras.Text) || CsoportPicker.SelectedItem == null)
+        {
+            await DisplayAlert("Hiba", "Minden mez?t ki kell tölteni és ki kell választani egy csoportot!", "OK");
             return;
         }
 
@@ -73,9 +146,9 @@ public partial class Feladatok : ContentPage
         */
         //await connection.InsertAsync(ujFeladat);
 
-        await DisplayAlert("Siker", "A feladat sikeresen l�trej�tt!", "OK");
+        await DisplayAlert("Siker", "A feladat sikeresen létrejött!", "OK");
 
-        // Navig�ci� a Feladataim oldalra
+        // Navigáció a Feladataim oldalra
         await Navigation.PushAsync(new Feladataim(FHO_id));
     }
 }

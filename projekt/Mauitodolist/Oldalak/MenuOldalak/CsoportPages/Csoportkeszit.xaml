@@ -14,27 +14,7 @@
                 FontFamily="NexaHeavy"
                 Margin="2, 2, 2, 15"
                 HorizontalOptions="Center"
-                />
-            <Label 
-                x:Name="NevVisszaJelez"
-                Text="A csoport neve nincs megfelelően megadva. Próbáld meg szóközök nélkül."
-                FontSize="15"
-                FontFamily="NexaHeavy"
-                Margin="2, 2, 2, 15"
-                HorizontalOptions="Center"
-                IsVisible="False"
-                />
-
-            <Picker
-                x:Name="FelhasznaloPicker"
-                Grid.ColumnSpan="4"
-                Margin="10"
-                WidthRequest="200"
-                HeightRequest="50"
-                FontSize="15"
-                BackgroundColor="{StaticResource halvanyszurke}"
-                Title="Válasszd ki a felhasználókat:"
-                Grid.Row="1"
+                TextColor="Black"
                 />
 
             <Entry
@@ -48,11 +28,33 @@
                 BackgroundColor="{StaticResource halvanyszurke}"
                 PlaceholderColor="Grey"
                 TextChanged="csoportentry_TextChanged"
+                TextColor="Black"
                 />
+
+            <CollectionView
+    x:Name="FelhasznaloCollectionView"
+    Grid.Row="2"
+    Grid.ColumnSpan="4"
+    Margin="10"
+    BackgroundColor="White"
+    SelectionMode="None">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                            <Label Text="{Binding Fnev}" VerticalOptions="Center" Margin="10,0" TextColor="Black"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+
             <Button
                 x:Name="button_Letrehoz"
                 Text="Létrehoz"
-                FontSize="15"
+                FontSize="20"
                 FontFamily="NexaLight"
                 Margin="50, 30, 50, 0"             
                 TextColor="Black"
@@ -60,17 +62,34 @@
                 Grid.Row="3"
                 IsEnabled="False"
                 Clicked="button_Letrehoz_Clicked_1"
-                />
+                >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
+
             <Button
                 Text="Vissza"
-                FontSize="15"
+                FontSize="20"
                 FontFamily="NexaLight"
                 Margin="50, 30, 50, 0"             
                 TextColor="Black"
                 BackgroundColor="{StaticResource darkerorange}"
                 Grid.Row="4"
                 Clicked="Button_Clicked"
-                />
+                >
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Radius="10"
+                            Opacity="0.4" />
+                </Button.Shadow>
+
+            </Button>
 
         </Grid>
     </Border>
