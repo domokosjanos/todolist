@@ -11,19 +11,19 @@ public partial class Csoportok : ContentPage
 {
     private SQLiteAsyncConnection _connection;
     private Felhasznalo AktFelhasznalo;
-    private Tag Tagok;
+    private Csoport AktCsoport;
     private int FHO_id;
-    private Viewmodel_FHO viewmodelFHO; // Hozzáadtuk a Viewmodel_FHO példányt
+    private Viewmodel_FHO viewmodelFHO = new Viewmodel_FHO(); // Hozzáadtuk és Inicializáltuk a Viewmodel_FHO-t
+    private Viewmodel_CSPT viewmodelCSPT = new Viewmodel_CSPT();
     public Csoportok(int id)
     {
         InitializeComponent();
         FHO_id = id;
         _connection = DBcsatlakozas.CreateConnection(); // Adatbáziskapcsolat inicializálása
-        viewmodelFHO = new Viewmodel_FHO(); // Inicializáljuk a Viewmodel_FHO-t
+        
 
         // Lekérjük az aktuális felhasználót
         AktFelhasznalo = viewmodelFHO.Felhasznalok.FirstOrDefault(f => f.Id == FHO_id);
-
         // Csoportok betöltése, stb.
         BetoltCsoportok();
     }
@@ -52,8 +52,10 @@ public partial class Csoportok : ContentPage
             await _connection.CreateTableAsync<Csoport>();
 
             // Csoportok lekérése
+            var Tagsagok = await _connection.Table<Tag>().Where(i => i.FHO_id == AktFelhasznalo.Id).ToListAsync();
+            
             var csoportLista = await _connection.Table<Csoport>().ToListAsync();
-            var TagokListaja = await _connection.Table<Tag>().Where(x=> x.FHO_id == AktFelhasznalo.Id).ToListAsync();
+            
 
             List<Csoport> megjelenoCsoportok = new List<Csoport>();
             // Minden csoporthoz hozzárendeljük, hogy törölhetõ-e
@@ -61,21 +63,20 @@ public partial class Csoportok : ContentPage
             {
                 // Javítva: az AktFelhasznalo mezõt használjuk
                 csoport.IsTorolheto = csoport.Csoportkeszito == AktFelhasznalo?.Fnev;
+                
                 //Csak azok a Csoportok, ahol tag a felhasználó
-                foreach (var tag in TagokListaja)
+                foreach (var tag in Tagsagok)
                 {
-                    if (tag.CSPT_id == csoport.Id)
+                    if (csoport.Id == tag.CSPT_id)
                     {
-
-                        //Ha a csoport tagja
                         megjelenoCsoportok.Add(csoport);
-                        
                     }
                 }
+                
             }
 
             // CollectionView frissítése
-            collectionCsoportok.ItemsSource = csoportLista;
+            collectionCsoportok.ItemsSource = megjelenoCsoportok;
         }
         catch (Exception ex)
         {
