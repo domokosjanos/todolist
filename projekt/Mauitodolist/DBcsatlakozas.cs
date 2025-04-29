@@ -1,6 +1,4 @@
 ﻿using SQLite;
-using System;
-using System.IO;
 namespace MauiToDoList
 {
     public static class DBcsatlakozas

@@ -48,33 +48,42 @@ public partial class Csoportok : ContentPage
     {
         try
         {
+            _connection = DBcsatlakozas.CreateConnection();
+            var dbPath = _connection.DatabasePath;
+            //await DisplayAlert("DB útvonal", $"Használt adatbázis fájl: {dbPath}", "OK");
+            await _connection.CreateTableAsync<Tag>();
+            var Tagsagok = await _connection.Table<Tag>().ToListAsync();
+            //var RendezettTagsagok = Tagsagok.GroupBy(g => g.CSPT_id);
+            if (Tagsagok == null || !Tagsagok.Any())
+            {
+                await DisplayAlert("Hiba", "Nincs olyan tag, amely a megadott felhasználóhoz tartozik.", "OK");
+            }
+
             // Ellenõrizzük, hogy létezik-e a tábla, ha nem, hozzuk létre
             await _connection.CreateTableAsync<Csoport>();
 
             // Csoportok lekérése
-            var Tagsagok = await _connection.Table<Tag>().Where(i => i.FHO_id == AktFelhasznalo.Id).ToListAsync();
-            
             var csoportLista = await _connection.Table<Csoport>().ToListAsync();
+            //Aktuális felhasználó tagságainak lekérése
             
-
             List<Csoport> megjelenoCsoportok = new List<Csoport>();
             // Minden csoporthoz hozzárendeljük, hogy törölhetõ-e
             foreach (var csoport in csoportLista)
             {
+                //await DisplayAlert("Debug", $"AktFelhasznalo.Id: {AktFelhasznalo.Id}, CSPT_id: {csoport.Id}", "OK");
                 // Javítva: az AktFelhasznalo mezõt használjuk
                 csoport.IsTorolheto = csoport.Csoportkeszito == AktFelhasznalo?.Fnev;
                 
                 //Csak azok a Csoportok, ahol tag a felhasználó
                 foreach (var tag in Tagsagok)
                 {
-                    if (csoport.Id == tag.CSPT_id)
+                    if (csoport.Id == tag.CSPT_id && AktFelhasznalo.Id == tag.FHO_id)
                     {
                         megjelenoCsoportok.Add(csoport);
                     }
                 }
-                
             }
-
+            await _connection.CloseAsync();
             // CollectionView frissítése
             collectionCsoportok.ItemsSource = megjelenoCsoportok;
         }
