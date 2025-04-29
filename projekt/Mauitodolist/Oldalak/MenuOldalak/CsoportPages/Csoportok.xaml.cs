@@ -11,10 +11,9 @@ public partial class Csoportok : ContentPage
 {
     private SQLiteAsyncConnection _connection;
     private Felhasznalo AktFelhasznalo;
-    private Csoport AktCsoport;
-    private int FHO_id;
-    private Viewmodel_FHO viewmodelFHO = new Viewmodel_FHO(); // Hozzáadtuk és Inicializáltuk a Viewmodel_FHO-t
-    private Viewmodel_CSPT viewmodelCSPT = new Viewmodel_CSPT();
+    private readonly int FHO_id;
+    // Hozzáadtuk és Inicializáltuk a Viewmodel_FHO-t
+    private Viewmodel_FHO viewmodelFHO = new Viewmodel_FHO(); 
     public Csoportok(int id)
     {
         InitializeComponent();
@@ -56,7 +55,7 @@ public partial class Csoportok : ContentPage
             //var RendezettTagsagok = Tagsagok.GroupBy(g => g.CSPT_id);
             if (Tagsagok == null || !Tagsagok.Any())
             {
-                await DisplayAlert("Hiba", "Nincs olyan tag, amely a megadott felhasználóhoz tartozik.", "OK");
+                await DisplayAlert("Hiba", "Üres tábla: Tagok", "OK");
             }
 
             // Ellenõrizzük, hogy létezik-e a tábla, ha nem, hozzuk létre

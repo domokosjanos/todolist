@@ -1,3 +1,4 @@
+using MauiToDoList.Model.adatbazis.kod;
 using MauiToDoList.Model.adatbazis.tablak;
 using MauiToDoList.Oldalak.MenuPages.CsoportPages;
 using MauiToDoList.Oldalak.MenuPages.FeladataimPages;
@@ -7,6 +8,8 @@ namespace MauiToDoList.Oldalak.MenuPages.FeladatPages;
 
 public partial class Feladatok : ContentPage
 {
+    private Viewmodel_CSPT viewmodelCSPT = new Viewmodel_CSPT();
+    private Csoport AktCsoport;
     readonly int FHO_id;
 	public Feladatok(int id)
 	{
@@ -100,6 +103,11 @@ public partial class Feladatok : ContentPage
         };
 
         await connection.InsertAsync(ujFeladat);
+
+
+
+
+
 
         await DisplayAlert("Siker", "A feladat sikeresen létrejött!", "OK");
 
