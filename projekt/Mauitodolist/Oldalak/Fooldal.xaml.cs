@@ -19,12 +19,14 @@ public partial class Fooldal : ContentPage
         Viewmodel_FHO.Aktfelhasznalo = felhasznalok.Find(x=>x.Id == id);
         InitializeComponent();
         FHO_id = id;
-        FnevUdvozlo.Text = $"Üdvözöllek, {felhasznalok[id - 1].Fnev}!";
+        FnevUdvozlo.Text = $"Üdvözöllek, {Viewmodel_FHO.Aktfelhasznalo.Fnev}!";
+        /*
         if (Felhasznalok.ContainsKey(id))
         {
             var felhasznalo = new List<Felhasznalo> { Felhasznalok[id] };
             BindingContext = felhasznalo;
         }
+        */
     }
 
     private async void Button_feladataim_Clicked(object sender, EventArgs e)

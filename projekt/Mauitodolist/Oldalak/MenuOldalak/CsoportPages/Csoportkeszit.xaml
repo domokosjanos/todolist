@@ -22,7 +22,7 @@
                 WidthRequest="250"
                 FontSize="20"
                 FontFamily="NexaLight"
-                Grid.Row="2"
+                Grid.Row="1"
                 Margin="10"
                 Placeholder="Csoport neve:"
                 BackgroundColor="{StaticResource halvanyszurke}"

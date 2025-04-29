@@ -51,14 +51,13 @@ public partial class Csoportkeszit : ContentPage
     {
         
         // Az Entry mezõ értéke
-        NevVisszaJelez.IsVisible = false;
-        var formazottNev = "";
-        if (csoportentry.Text.Any(char.IsWhiteSpace) == false)
+        var csoportNev = "";
+        if (csoportentry.Text.Any(char.IsWhiteSpace))
         {
             await DisplayAlert("Hiba", "A csoport neve nem lehet üres.", "OK");
             return;
         }
-
+        csoportNev = csoportentry.Text;
         var ujCsoport = new Csoport
         {
             Csoportnev = csoportNev,
