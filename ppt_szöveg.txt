@@ -1,0 +1,168 @@
+ppt-terv szöveg
+
+Bejelentkezési oldal
+Ez az első oldal, amely megjelenik a felhasználó számára az alkalmazás elindítása után. Az oldal célja, hogy hitelesítse a felhasználót, mielőtt az továbbléphetne az alkalmazás fő funkcióihoz.
+
+A felhasználó e-mail címet és jelszót ad meg.
+
+A jelszó titkosítva van tárolva az adatbázisban, és a hitelesítéshez a Scrypt algoritmust használom.
+
+A rendszer ellenőrzi, hogy az e-mail cím létezik-e, és ha igen, akkor a jelszó egyezik-e a titkosított verzióval.
+
+Sikeres bejelentkezés esetén az alkalmazás a főoldalra navigál.
+
+A gombok animációval reagálnak a lenyomásra, így vizuálisan is visszajelzést adnak a felhasználónak.
+
+A Regisztráció gomb további funkciókhoz vezet (ezek későbbi oldalon vannak implementálva).
+
+
+Regisztrációs oldal
+Ez az oldal lehetővé teszi az új felhasználók számára, hogy regisztráljanak az alkalmazásba. A felhasználó több adatot is megad, amelyeket a rendszer biztonságosan eltárol.
+
+A felhasználó megadja a nevét, felhasználónevét, jelszavát, e-mail címét, telefonszámát és születési dátumát.
+
+A jelszó Scrypt algoritmussal titkosítva kerül eltárolásra az adatbázisban.
+
+A rendszer ellenőrzi, hogy a megadott e-mail cím és felhasználónév még nem szerepel-e az adatbázisban.
+
+Ha a megadott születési dátum jövőbeli, vagy a felhasználó túl fiatal (6 év alatti), akkor hibaüzenetet kap.
+
+Sikeres regisztráció esetén az adatok bekerülnek a helyi SQLite adatbázisba, és a felhasználót visszairányítja a bejelentkezési oldalra.
+
+A telefonszám mező csak számokat fogad el, legfeljebb 15 karakter hosszúságig.
+
+
+Főoldal
+A főoldal a bejelentkezés után jelenik meg, és innen a felhasználó az alkalmazás összes fontos funkcióját elérheti.
+
+Az oldal tetején egy üdvözlő szöveg jelenik meg, amely tartalmazza a bejelentkezett felhasználó felhasználónevét.
+
+A felhasználók adatai betöltődnek egy CollectionView-ba, így azok listázhatók és akár később meg is jeleníthetők.
+
+Az oldalon négy fő gomb található, mindegyik egy külön funkciót nyit meg:
+
+Feladataim: A felhasználóhoz tartozó feladatokat jeleníti meg.
+
+Csoportok: A felhasználó által létrehozott vagy amelyben részt vesz csoportokat listázza.
+
+Feladat készítése: Új feladatokat lehet itt létrehozni.
+
+Profilom: A felhasználó profiladatait és beállításait kezeli.
+
+Minden gomb lenyomásakor animáció fut le, ami javítja a felhasználói élményt.
+
+Ez az oldal tehát az alkalmazás központi navigációs felülete.
+
+
+Csoportok oldal
+Ez az oldal a felhasználó által létrehozott vagy amelyekhez tartozik csoportokat jeleníti meg.
+
+Adatbáziskapcsolat aszinkron módon jön létre az SQLite használatával, és automatikusan betölti az aktuális felhasználó adatait.
+
+Az oldal betölti a Csoport és Tag táblák tartalmát, majd megjeleníti azokat a csoportokat, ahol a felhasználó tag.
+
+A csoportkészítő neve alapján kerül megállapításra, hogy egy csoport törölhető-e. Csak a készítő törölheti a csoportot.
+
+A törlés során egy megerősítő párbeszédablak jelenik meg, ezzel megelőzve a véletlen törlést.
+
+Az oldalon lehetőség van:
+
+Új csoport létrehozására
+
+Visszalépésre a főoldalra
+
+Navigálásra a „Feladataim” vagy „Profilom” oldalakra
+
+A gombokhoz animáció is társul, amely tovább növeli a felhasználói élményt.
+
+Ez az oldal tehát a csoporttagság kezelésének, megjelenítésének és adminisztrációjának központi helyszíne.
+
+
+Feladataim oldal bemutatása
+A "Feladataim" oldal célja, hogy a bejelentkezett felhasználó számára megjelenítse az összes olyan feladatot, amelyhez köze van – akár saját maga hozta létre, akár valamelyik csoportjához tartozik, és ott felelős egy feladatért.
+
+A betöltési folyamat során az oldal:
+
+Létrehozza az adatbázis kapcsolatot, majd lekéri a felhasználó csoporttagságait.
+
+Lekéri az adatbázisból a Felelősök, Csoportok és Feladatok táblákat.
+
+Az összes feladat közül csak azokat listázza, amelyekhez a felhasználó kapcsolódik:
+
+vagy ő hozta létre a feladatot (saját feladatai),
+
+vagy olyan csoportos feladatról van szó, amelynél ő van kijelölve felelősként.
+
+Az így kiválogatott feladatokat megjeleníti egy ListView vezérlőben.
+
+Az oldalon a felhasználó a feladatait:
+
+készre vagy nem készre jelölheti (állapotváltás),
+
+törölheti (csak ha ő hozta létre).
+
+
+
+Feladatkészítő oldal bemutatása
+A "Feladatok" oldal lehetővé teszi a bejelentkezett felhasználó számára új feladat létrehozását egy kiválasztott csoporthoz.
+
+A folyamat lépései:
+
+Csoportlista betöltése:
+Az oldal indulásakor lekéri az adatbázisból a csoportokat amiben benne van, és ezek neveit megjeleníti egy legördülő listában (Picker), ahonnan a felhasználó kiválaszthatja, melyik csoporthoz tartozzon az új feladat.
+
+Feladat létrehozása:
+A felhasználó megad egy címet és leírást a feladathoz, kiválasztja a csoportot, majd a „Készít” gombra kattint.
+
+Az alkalmazás ellenőrzi, hogy minden mező ki van-e töltve.
+
+Ha igen, akkor elmenti az új feladatot az adatbázisba, a felhasználó ID-jával és a csoport nevével együtt.
+
+A feladat létrehozásának dátuma is rögzítésre kerül.
+
+Navigáció vissza a feladataim oldalra:
+A sikeres mentést követően a rendszer visszairányítja a felhasználót a „Feladataim” oldalra, ahol már megjelenik az újonnan létrehozott feladat is.
+
+
+
+Profil oldal bemutatása
+A "Profilom" oldal a bejelentkezett felhasználó adatait jeleníti meg, és lehetőséget biztosít a navigációra, illetve kijelentkezésre.
+
+Fő funkciók:
+
+Felhasználói adatok megjelenítése:
+Az oldal betöltésekor lekérdezi a bejelentkezett felhasználót az ID alapján, majd a kiválasztott felhasználót beállítja az oldal adatforrásaként (BindingContext), így a felhasználó neve és egyéb adatai megjelennek a felületen.
+
+
+Kijelentkezés funkció:
+A „Kijelentkezés” gombbal a felhasználó visszatérhet a bejelentkező oldalra. Mielőtt ez megtörténne, egy megerősítő párbeszédablak jelenik meg, hogy elkerülhető legyen a véletlen kijelentkezés. A rendszer a navigációs előzményeket is törli, így visszalépésre nincs lehetőség.
+
+
+
+
+Csoportkészítés oldal bemutatása
+A „Csoportkészítés” oldal lehetővé teszi a felhasználók számára, hogy új csoportot hozzanak létre, valamint más felhasználókat is bevonjanak ebbe a csoportba.
+
+Főbb funkciók:
+
+Felhasználók betöltése:
+Az oldal betöltésekor lekérdezi az összes felhasználót az adatbázisból, kivéve a bejelentkezett felhasználót, aki automatikusan a csoport készítője lesz. Ezek a felhasználók megjelennek egy listában, és több közülük kiválasztható a csoporthoz való hozzáadás céljából.
+
+Csoportnév megadása:
+A felhasználó beír egy egyedi csoportnevet, amely alapján létrejön az új csoport. A gomb csak akkor aktiválódik, ha a névmező nem üres.
+
+Csoport létrehozása és tagok hozzárendelése:
+A létrehozás gombra kattintva:
+
+új rekord jön létre a Csoport táblában,
+
+a készítő automatikusan taggá válik jogosultsággal,
+
+a kiválasztott felhasználók is tagként csatlakoznak, jogosultság nélkül,
+
+a rendszer frissíti a csoport létszámát is.
+
+Sikeres visszajelzés és navigáció:
+Ha minden rendben lezajlott, a rendszer visszajelzést ad a sikeres műveletről, és visszanavigál a csoportkezelő oldalra.
+
+Ez az oldal biztosítja, hogy a felhasználók gyorsan és egyszerűen hozhassanak létre közösségeket, csoportokat az együttműködéshez.

@@ -24,14 +24,39 @@ public partial class Feladatok : ContentPage
     {
         var connection = DBcsatlakozas.CreateConnection();
 
-        // Lekérjük az összes csoportot az adatbázisból
-        var csoportok = await connection.Table<Csoport>().ToListAsync();
+        // Ellenõrizzük, hogy létezik-e a Tag tábla
+        await connection.CreateTableAsync<Tag>();
 
-        // Listába mentjük a csoportok neveit
-        var csoportNevek = csoportok.Select(c => c.Csoportnev).ToList();
+        // Lekérjük az aktuális felhasználó tagságait
+        var tagsagok = await connection.Table<Tag>()
+            .Where(t => t.FHO_id == FHO_id) // Feltételezzük, hogy FHO_id az aktuális felhasználó azonosítója
+            .ToListAsync();
 
-        // A csoportneveket hozzárendeljük a Picker ItemsSource-jához
-        CsoportPicker.ItemsSource = csoportNevek;
+        if (!tagsagok.Any())
+        {
+            // Ha a felhasználó nem tag egyetlen csoportban sem, üres listát állítunk be
+            CsoportPicker.ItemsSource = new List<string>();
+            return;
+        }
+
+        // Lekérjük az összes csoportot
+        var osszesCsoport = await connection.Table<Csoport>().ToListAsync();
+
+        // Létrehozunk egy listát a megjelenítendõ csoportnevekhez
+        var megjelenoCsoportNevek = new List<string>();
+
+        // Iterálunk az összes csoporton
+        foreach (var csoport in osszesCsoport)
+        {
+            // Ellenõrizzük, hogy a csoport azonosítója szerepel-e a felhasználó tagságai között
+            if (tagsagok.Any(tag => tag.CSPT_id == csoport.Id))
+            {
+                megjelenoCsoportNevek.Add(csoport.Csoportnev);
+            }
+        }
+
+        // A megjelenítendõ csoportneveket hozzárendeljük a Picker ItemsSource-jához
+        CsoportPicker.ItemsSource = megjelenoCsoportNevek;
     }
 
     private async void Buttonfooldal_Clicked(object sender, EventArgs e)

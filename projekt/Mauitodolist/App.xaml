@@ -30,6 +30,12 @@
                 <Setter Property="TextColor" Value="Black" />
             </Style>
 
+            <Style x:Key="Divider" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="1"/>
+                <Setter Property="BackgroundColor" Value="LightGray"/>
+                <Setter Property="Margin" Value="0,10"/>
+            </Style>
+
             <converters:InvertBoolConverter x:Key="InvertBoolConverter" />
             <converters:BoolConverter x:Key="BoolConverter" />
             <converters:BoolToColorConverter x:Key="BoolToColorConverter" />

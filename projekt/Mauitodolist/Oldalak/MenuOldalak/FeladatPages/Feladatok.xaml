@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiToDoList.Oldalak.MenuPages.FeladatPages.Feladatok"
              Title="Feladatok" BackgroundColor="{StaticResource darkerorange}" NavigationPage.HasNavigationBar="False">
-
+    
     <Border
         StrokeShape="RoundRectangle 40,40,40,40"
         Background="White"
@@ -93,6 +93,7 @@
                 Margin="2, 2, 2, 15"
                 HorizontalOptions="Center" 
                 VerticalOptions="CenterAndExpand"
+                TextColor="Black"
             />
 
             <Entry 
@@ -157,4 +158,5 @@
 
         </Grid>
     </Border>
+    
 </ContentPage>
