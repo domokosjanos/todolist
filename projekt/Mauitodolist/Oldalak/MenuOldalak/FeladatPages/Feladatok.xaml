@@ -10,7 +10,7 @@
         Margin="10,10,10,10">
         
         <Grid
-            RowDefinitions=".1*,.1*,.1*,.1*,.6*,.1*"
+            RowDefinitions=".1*,.1*,.1*,.1*,.1*,.6*,.1*"
             ColumnDefinitions=".1*,.1*,.1*,.1*">
             
             <Button 
@@ -125,7 +125,18 @@
                 TextColor="Black"
             />
 
-
+            <DatePicker
+                x:Name="hatarDatePicker"
+                Margin="10"
+                BackgroundColor="{StaticResource halvanyszurke}"
+                FontFamily="NexaLight"
+                DateSelected="hatarDatePicker_DateSelected"
+                TextColor="Black"
+                Grid.Row="4"
+                Grid.ColumnSpan="4"
+                WidthRequest="150"
+                HeightRequest="20"
+            />
 
             <Editor
                 x:Name="feladatleiras"
@@ -134,7 +145,7 @@
                 Grid.ColumnSpan="4"
                 Placeholder="Feladat leírás:"
                 FontSize="15"
-                Grid.Row="4"
+                Grid.Row="5"
                 VerticalTextAlignment="Start"
                 BackgroundColor="{StaticResource halvanyszurke}"
                 PlaceholderColor="Grey"                  
@@ -144,7 +155,7 @@
 
             <Button
                 x:Name="Keszit"
-                Grid.Row="5"
+                Grid.Row="6"
                 Grid.ColumnSpan="4"
                 BackgroundColor="{StaticResource pumpkinorange}"
                 WidthRequest="200"

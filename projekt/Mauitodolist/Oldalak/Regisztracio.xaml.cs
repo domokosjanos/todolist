@@ -113,7 +113,7 @@ public partial class Regisztracio : ContentPage
         {
             // Ha nem megfelelõ dátumot választottak, akkor állítsuk vissza egy érvényes dátumra
             szuletesDatePicker.Date = today.AddYears(-7);  // Példa: visszaállítjuk 7 évvel korábbra
-            DisplayAlert("Hiba", "A kiválasztott dátum nem lehet késõbbi, mint a érvényes. Válasszon egy régebbi dátumot!", "Rendben");
+            DisplayAlert("Hiba", "A kiválasztott dátum nem lehet késõbbi, mint az érvényes. Válasszon egy régebbi dátumot!", "Rendben");
         }
     }
 }

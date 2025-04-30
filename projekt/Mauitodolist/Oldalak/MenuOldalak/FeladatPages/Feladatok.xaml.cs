@@ -9,7 +9,10 @@ namespace MauiToDoList.Oldalak.MenuPages.FeladatPages;
 public partial class Feladatok : ContentPage
 {
     private Viewmodel_CSPT viewmodelCSPT = new Viewmodel_CSPT();
+    private List<Csoport> CSPTLista;
     private Csoport AktCsoport;
+    private Viewmodel_FAT viewmodelFAT = new Viewmodel_FAT();
+    private Feladat AktFeladat;
     readonly int FHO_id;
 	public Feladatok(int id)
 	{
@@ -41,13 +44,13 @@ public partial class Feladatok : ContentPage
 
         // Lekérjük az összes csoportot
         var osszesCsoport = await connection.Table<Csoport>().ToListAsync();
-
         // Létrehozunk egy listát a megjelenítendõ csoportnevekhez
         var megjelenoCsoportNevek = new List<string>();
 
         // Iterálunk az összes csoporton
         foreach (var csoport in osszesCsoport)
         {
+            CSPTLista.Add(csoport);
             // Ellenõrizzük, hogy a csoport azonosítója szerepel-e a felhasználó tagságai között
             if (tagsagok.Any(tag => tag.CSPT_id == csoport.Id))
             {
@@ -111,7 +114,7 @@ public partial class Feladatok : ContentPage
     {
         if (string.IsNullOrWhiteSpace(CimEntry.Text) || string.IsNullOrWhiteSpace(feladatleiras.Text) || CsoportPicker.SelectedItem == null)
         {
-            await DisplayAlert("Hiba", "Minden mezõt ki kell tölteni és ki kell választani egy csoportot!", "OK");
+            await DisplayAlert("Hiba", "Minden kötelezõ mezõt ki kell tölteni és ki kell választani egy csoportot!", "OK");
             return;
         }
 
@@ -122,21 +125,39 @@ public partial class Feladatok : ContentPage
         {
             FHO_id = FHO_id,
             CSPT_nev = CsoportPicker.SelectedItem.ToString(),
-            Cim = CimEntry.Text, 
+            Cim = CimEntry.Text,
+            Hatarido = hatarDatePicker.Date.ToString(),
             Leiras = feladatleiras.Text,
             Feladat_letrejotte = DateTime.Now.ToString()
         };
 
         await connection.InsertAsync(ujFeladat);
+        await connection.CreateTableAsync<Felelos>();
 
+        var ujFelelos = new Felelos
+        {
+            FAT_id = ujFeladat.Id,
+            CSPT_id = CSPTLista.Find(x => x.Csoportnev == ujFeladat.CSPT_nev).Id
+        };
 
-
-
-
+        await connection.InsertAsync(ujFelelos);
 
         await DisplayAlert("Siker", "A feladat sikeresen létrejött!", "OK");
 
         // Navigáció a Feladataim oldalra
         await Navigation.PushAsync(new Feladataim(FHO_id));
+    }
+
+    private void hatarDatePicker_DateSelected(object sender, DateChangedEventArgs e)
+    {
+        DateTime selectedDate = e.NewDate;
+        DateTime today = DateTime.Now.Date;  // Mai nap dátuma (idõ nélküli)
+
+        // Ellenõrizzük, hogy a dátum jövõbeli, mint a mai nap és nem töltötte be a 6 éves kort.
+        if (selectedDate < today)
+        {
+            // Ha nem megfelelõ dátumot választottak, akkor állítsuk vissza egy érvényes dátumra
+            DisplayAlert("Hiba", "A kiválasztott dátum nem lehet korábbi, mint a mai nap dátuma. Válasszon egy késõbbi dátumot!", "Rendben");
+        }
     }
 }
