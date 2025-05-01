@@ -64,6 +64,7 @@
                         FontSize="Small"
                         VerticalOptions="Center"
                         Margin="20"
+                        TextColor="Black"
                     />
 
                     <DatePicker
