@@ -124,7 +124,7 @@
                 Title="Válassz egy csoportot"
                 TextColor="Black"
             />
-
+             <!--
             <DatePicker
                 x:Name="hatarDatePicker"
                 Margin="10"
@@ -137,6 +137,7 @@
                 WidthRequest="150"
                 HeightRequest="20"
             />
+            -->
 
             <Editor
                 x:Name="feladatleiras"

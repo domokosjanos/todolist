@@ -27,6 +27,26 @@ public partial class Feladatok : ContentPage
     {
         var connection = DBcsatlakozas.CreateConnection();
 
+        await connection.CreateTableAsync<Tag>();
+        await connection.CreateTableAsync<Csoport>();
+
+        var tagsagok = await connection.Table<Tag>()
+            .Where(t => t.FHO_id == FHO_id)
+            .ToListAsync();
+
+        var csoportIDs = tagsagok.Select(t => t.CSPT_id).Distinct().ToList();
+
+        var csoportok = await connection.Table<Csoport>()
+            .Where(c => csoportIDs.Contains(c.Id))
+            .ToListAsync();
+
+        var csoportNevek = csoportok.Select(c => c.Csoportnev).ToList();
+
+        CsoportPicker.ItemsSource = csoportNevek;
+
+
+
+        /*
         // Ellenõrizzük, hogy létezik-e a Tag tábla
         await connection.CreateTableAsync<Tag>();
 
@@ -60,6 +80,8 @@ public partial class Feladatok : ContentPage
 
         // A megjelenítendõ csoportneveket hozzárendeljük a Picker ItemsSource-jához
         CsoportPicker.ItemsSource = megjelenoCsoportNevek;
+
+        */
     }
 
     private async void Buttonfooldal_Clicked(object sender, EventArgs e)
@@ -126,14 +148,14 @@ public partial class Feladatok : ContentPage
             FHO_id = FHO_id,
             CSPT_nev = CsoportPicker.SelectedItem.ToString(),
             Cim = CimEntry.Text,
-            Hatarido = hatarDatePicker.Date.ToString(),
+            //Hatarido = hatarDatePicker.Date.ToString(),
             Leiras = feladatleiras.Text,
             Feladat_letrejotte = DateTime.Now.ToString()
         };
 
         await connection.InsertAsync(ujFeladat);
-        await connection.CreateTableAsync<Felelos>();
-
+        //await connection.CreateTableAsync<Felelos>();
+        /*
         var ujFelelos = new Felelos
         {
             FAT_id = ujFeladat.Id,
@@ -141,13 +163,13 @@ public partial class Feladatok : ContentPage
         };
 
         await connection.InsertAsync(ujFelelos);
-
+        */
         await DisplayAlert("Siker", "A feladat sikeresen létrejött!", "OK");
 
         // Navigáció a Feladataim oldalra
         await Navigation.PushAsync(new Feladataim(FHO_id));
     }
-
+    /*
     private void hatarDatePicker_DateSelected(object sender, DateChangedEventArgs e)
     {
         DateTime selectedDate = e.NewDate;
@@ -160,4 +182,5 @@ public partial class Feladatok : ContentPage
             DisplayAlert("Hiba", "A kiválasztott dátum nem lehet korábbi, mint a mai nap dátuma. Válasszon egy késõbbi dátumot!", "Rendben");
         }
     }
+    */
 }
