@@ -17,6 +17,13 @@ namespace MauiToDoList
             var eleresiUt = DBcsatlakozas.Utvonal;
             _adatbazis = new SQLiteConnection(eleresiUt, DBcsatlakozas.Flags);
 
+            //_adatbazis.DropTable<Felhasznalo>();
+            //_adatbazis.DropTable<Csoport>();
+            //_adatbazis.DropTable<Tag>();
+            //_adatbazis.DropTable<Feladat>();
+            //_adatbazis.DropTable<Felelos>();
+
+
             _adatbazis.CreateTable<Felhasznalo>();
             _adatbazis.CreateTable<Csoport>();
             _adatbazis.CreateTable<Feladat>();
