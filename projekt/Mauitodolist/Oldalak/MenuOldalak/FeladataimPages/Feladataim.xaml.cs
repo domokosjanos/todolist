@@ -1,21 +1,26 @@
+using MauiToDoList.Model.adatbazis.kod;
 using MauiToDoList.Model.adatbazis.tablak;
 using MauiToDoList.Oldalak.MenuPages.CsoportPages;
 using MauiToDoList.Oldalak.MenuPages.FeladatPages;
 using MauiToDoList.Oldalak.MenuPages.ProfilPages;
+using SQLite;
 
 namespace MauiToDoList.Oldalak.MenuPages.FeladataimPages;
 
 public partial class Feladataim : ContentPage
 {
-    readonly int FHO_id;
-    public int BejelentkezettFelhasznaloId { get; set; }
-
+    
+    private SQLiteAsyncConnection _connection;
+    private Felhasznalo Aktfelhasznalo;
+    private Csoport Aktcsoport;
+    private Viewmodel_FHO viewmodelFHO = new Viewmodel_FHO();
+    private Viewmodel_CSPT ViewmodelCSPT = new Viewmodel_CSPT();
+    private readonly int FHO_id;
     public Feladataim(int id)
 	{
 		InitializeComponent();
         FHO_id = id;
-
-        BejelentkezettFelhasznaloId = id;
+        Aktfelhasznalo = viewmodelFHO.Felhasznalok.FirstOrDefault(f=>f.Id == id);
         BetoltesFeladatok();
     }
 
@@ -69,24 +74,74 @@ public partial class Feladataim : ContentPage
 
     public async Task BetoltesFeladatok()
     {
-        var connection = DBcsatlakozas.CreateConnection();
+        /*   
+           var connection = DBcsatlakozas.CreateConnection();
 
-        // Lekérjük a felhasználó csoporttagságait
-        var csoporttagsagok = await connection.Table<Tag>()
-            .Where(ct => ct.FHO_id == FHO_id)
-            .ToListAsync();
+           // Lekérjük a felhasználó csoporttagságait
 
-        var csoportnevek = csoporttagsagok.Select(ct => ct.Csoportnev).ToList();
 
-        // Lekérjük azokat a feladatokat, amiket õ hozott létre vagy a csoportjainak lettek kiosztva
-        var feladatok = await connection.Table<Feladat>().ToListAsync();
+           // Lekérjük azokat a feladatokat, amiket õ hozott létre vagy a csoportjainak lettek kiosztva
+           var feladatok = await connection.Table<Feladat>().ToListAsync();
 
-        var sajatFeladatok = feladatok
-            .Where(f => f.FHO_id == FHO_id || csoportnevek.Contains(f.CSPT_nev))
-            .ToList();
+           var sajatFeladatok = feladatok
+               .Where(f => (f.FHO_id == FHO_id ) || csoportnevek.Contains(f.CSPT_nev))
+               .ToList();
 
-        // ListView vagy CollectionView-hoz adhatod hozzá
-        FeladatokListView.ItemsSource = sajatFeladatok;
+           // ListView vagy CollectionView-hoz adhatod hozzá
+           FeladatokListView.ItemsSource = sajatFeladatok;
+          */
+        /*
+          _connection = DBcsatlakozas.CreateConnection();
+          //Tagságok lekérése
+          var tagsagok = await _connection.Table<Tag>()
+              .Where(ct => ct.FHO_id == FHO_id)
+              .ToListAsync();
+
+          //Felelõs tábla lekérdezés
+          await _connection.CreateTableAsync<Felelos>();
+          var Felelosok = await _connection.Table<Felelos>().ToListAsync();
+          //Ellenõrzés, hogy nem üres.
+          if (Felelosok == null || !Felelosok.Any())
+          {
+              await DisplayAlert("Hiba", "Üres tábla: Felelosok", "OK");
+          }
+          //Csoportok lekérdezése
+          await _connection.CreateTableAsync<Csoport>();
+          var Csoportok = await _connection.Table<Csoport>().ToListAsync();
+
+          //Feladatok lekérdezése
+          await _connection.CreateTableAsync<Feladat>();
+          var Feladatok = await _connection.Table<Feladat>().ToListAsync();
+
+          List<Feladat> CSPTesFHOFeladatok = new List<Feladat>();
+          foreach (var csoport in Csoportok)
+          {
+              Aktcsoport = ViewmodelCSPT.Csoportok.FirstOrDefault(f => f.Id == csoport.Id);
+              foreach (var felad in Feladatok)
+              {
+
+                  foreach (var felel in Felelosok)
+                  {
+                      if ((felad.Id == felel.FAT_id && Aktcsoport.Id == felel.CSPT_id)) //VAGY ág kellene
+                      {
+                          CSPTesFHOFeladatok.Add(felad);
+                      }
+                  }
+              }
+          }
+          //CSPTesFHOFeladatok.AddRange(sajatFeladatok);
+          FeladatokListView.ItemsSource = CSPTesFHOFeladatok;
+          await _connection.CloseAsync();
+        */
+
+        _connection = DBcsatlakozas.CreateConnection();
+
+        await _connection.CreateTableAsync<Feladat>();
+        var feladatok = await _connection.Table<Feladat>().ToListAsync();
+
+        FeladatokListView.ItemsSource = feladatok;
+
+        await _connection.CloseAsync();
     }
 
     private async void FeladatAllapot_Clicked(object sender, EventArgs e)

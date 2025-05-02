@@ -17,10 +17,6 @@ namespace MauiToDoList
             var eleresiUt = DBcsatlakozas.Utvonal;
             _adatbazis = new SQLiteConnection(eleresiUt, DBcsatlakozas.Flags);
 
-            
-            _adatbazis.DropTable<Tag>();  // A régi tábla törlése
-            _adatbazis.CreateTable<Tag>(); // Új tábla létrehozása
-
             _adatbazis.CreateTable<Felhasznalo>();
             _adatbazis.CreateTable<Csoport>();
             _adatbazis.CreateTable<Feladat>();

@@ -8,7 +8,6 @@ public partial class Csoportkeszit : ContentPage
 {
     private int FHO_id;
     public Viewmodel_FHO viewmodelFHO = new Viewmodel_FHO();
-    //public Viewmodel_CSPT viewmodelCSPT = new Viewmodel_CSPT();
     private List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
     
 
@@ -68,6 +67,10 @@ public partial class Csoportkeszit : ContentPage
         };
 
         var connection = DBcsatlakozas.CreateConnection();
+        var path = DBcsatlakozas.CreateConnection().DatabasePath;
+        //await DisplayAlert("DB útvonal", path, "OK");
+        //await connection.DropTableAsync<Csoport>();
+
         await connection.CreateTableAsync<Csoport>();
         await connection.InsertAsync(ujCsoport);
 
@@ -78,6 +81,8 @@ public partial class Csoportkeszit : ContentPage
             await DisplayAlert("Hiba", "A csoportot nem sikerült létrehozni.", "OK");
             return;
         }
+
+        //await connection.DropTableAsync<Tag>();
 
         await connection.CreateTableAsync<Tag>();
 
@@ -107,10 +112,13 @@ public partial class Csoportkeszit : ContentPage
             };
             await connection.InsertAsync(ujTag);
         }
-
+        var mindenTag = await connection.Table<Tag>().ToListAsync();
+        //await DisplayAlert("Debug", $"Beszúrt tag rekordok száma: {mindenTag.Count}", "OK");
         // Frissítjük a csoport létszámát
         csoport.Letszam = letszam;
         await connection.UpdateAsync(csoport); // A csoport létszámának frissítése
+
+        await connection.CloseAsync();
 
         await DisplayAlert("Siker", "A csoport létrehozása sikeres volt.", "OK");
         await Navigation.PushAsync(new Csoportok(FHO_id));

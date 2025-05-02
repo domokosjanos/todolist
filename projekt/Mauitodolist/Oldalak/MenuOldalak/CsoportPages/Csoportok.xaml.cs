@@ -11,19 +11,18 @@ public partial class Csoportok : ContentPage
 {
     private SQLiteAsyncConnection _connection;
     private Felhasznalo AktFelhasznalo;
-    private Tag Tagok;
-    private int FHO_id;
-    private Viewmodel_FHO viewmodelFHO; // Hozzáadtuk a Viewmodel_FHO példányt
+    private readonly int FHO_id;
+    // Hozzáadtuk és Inicializáltuk a Viewmodel_FHO-t
+    private Viewmodel_FHO viewmodelFHO = new Viewmodel_FHO(); 
     public Csoportok(int id)
     {
         InitializeComponent();
         FHO_id = id;
         _connection = DBcsatlakozas.CreateConnection(); // Adatbáziskapcsolat inicializálása
-        viewmodelFHO = new Viewmodel_FHO(); // Inicializáljuk a Viewmodel_FHO-t
+        
 
         // Lekérjük az aktuális felhasználót
         AktFelhasznalo = viewmodelFHO.Felhasznalok.FirstOrDefault(f => f.Id == FHO_id);
-
         // Csoportok betöltése, stb.
         BetoltCsoportok();
     }
@@ -48,34 +47,44 @@ public partial class Csoportok : ContentPage
     {
         try
         {
+            _connection = DBcsatlakozas.CreateConnection();
+            var dbPath = _connection.DatabasePath;
+            //await DisplayAlert("DB útvonal", $"Használt adatbázis fájl: {dbPath}", "OK");
+            await _connection.CreateTableAsync<Tag>();
+            var Tagsagok = await _connection.Table<Tag>().ToListAsync();
+            //var RendezettTagsagok = Tagsagok.GroupBy(g => g.CSPT_id);
+            if (Tagsagok == null || !Tagsagok.Any())
+            {
+                await DisplayAlert("Hiba", "Üres tábla: Tagok", "OK");
+            }
+
             // Ellenõrizzük, hogy létezik-e a tábla, ha nem, hozzuk létre
             await _connection.CreateTableAsync<Csoport>();
 
             // Csoportok lekérése
             var csoportLista = await _connection.Table<Csoport>().ToListAsync();
-            var TagokListaja = await _connection.Table<Tag>().Where(x=> x.FHO_id == AktFelhasznalo.Id).ToListAsync();
-
+            //Aktuális felhasználó tagságainak lekérése
+            
             List<Csoport> megjelenoCsoportok = new List<Csoport>();
             // Minden csoporthoz hozzárendeljük, hogy törölhetõ-e
             foreach (var csoport in csoportLista)
             {
+                //await DisplayAlert("Debug", $"AktFelhasznalo.Id: {AktFelhasznalo.Id}, CSPT_id: {csoport.Id}", "OK");
                 // Javítva: az AktFelhasznalo mezõt használjuk
                 csoport.IsTorolheto = csoport.Csoportkeszito == AktFelhasznalo?.Fnev;
+                
                 //Csak azok a Csoportok, ahol tag a felhasználó
-                foreach (var tag in TagokListaja)
+                foreach (var tag in Tagsagok)
                 {
-                    if (tag.CSPT_id == csoport.Id)
+                    if (csoport.Id == tag.CSPT_id && AktFelhasznalo.Id == tag.FHO_id)
                     {
-
-                        //Ha a csoport tagja
                         megjelenoCsoportok.Add(csoport);
-                        
                     }
                 }
             }
-
+            await _connection.CloseAsync();
             // CollectionView frissítése
-            collectionCsoportok.ItemsSource = csoportLista;
+            collectionCsoportok.ItemsSource = megjelenoCsoportok;
         }
         catch (Exception ex)
         {

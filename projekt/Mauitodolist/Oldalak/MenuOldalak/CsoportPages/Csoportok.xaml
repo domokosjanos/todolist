@@ -77,6 +77,17 @@
                 SelectionMode="None"
                 HorizontalOptions="Center"
                 Margin="10">
+
+                <CollectionView.EmptyView>
+                    <Label Text="Nem vagy egy csoportban sem."
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        FontSize="Medium"
+                        TextColor="Gray"
+                        Padding="20"
+                    />
+                </CollectionView.EmptyView>
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border Stroke="{StaticResource pumpkinorange}" BackgroundColor="{StaticResource pumpkinorange}" StrokeShape="RoundRectangle 10">
