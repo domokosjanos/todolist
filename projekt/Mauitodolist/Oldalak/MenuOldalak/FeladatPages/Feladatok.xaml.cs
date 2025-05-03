@@ -156,7 +156,8 @@ public partial class Feladatok : ContentPage
             var ujFelelos = new Felelos
             {
                 FAT_id = ujFeladat.Id,
-                CSPT_id = talalat.Id
+                CSPT_id = talalat.Id,
+                FeladatNev = ujFeladat.Cim
             };
 
             await connection.InsertAsync(ujFelelos);
