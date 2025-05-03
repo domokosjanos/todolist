@@ -33,12 +33,13 @@
                 />
 
             <CollectionView
-    x:Name="FelhasznaloCollectionView"
-    Grid.Row="2"
-    Grid.ColumnSpan="4"
-    Margin="10"
-    BackgroundColor="White"
-    SelectionMode="None">
+                x:Name="FelhasznaloCollectionView"
+                Grid.Row="2"
+                Grid.ColumnSpan="4"
+                Margin="10"
+                BackgroundColor="White"
+                SelectionMode="None"
+                >
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

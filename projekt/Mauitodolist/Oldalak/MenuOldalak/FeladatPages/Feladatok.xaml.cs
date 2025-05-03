@@ -9,7 +9,7 @@ namespace MauiToDoList.Oldalak.MenuPages.FeladatPages;
 public partial class Feladatok : ContentPage
 {
     private Viewmodel_CSPT viewmodelCSPT = new Viewmodel_CSPT();
-    private List<Csoport> CSPTLista;
+    private List<Csoport> CSPTLista =new List<Csoport>();
     private Csoport AktCsoport;
     private Viewmodel_FAT viewmodelFAT = new Viewmodel_FAT();
     private Feladat AktFeladat;
@@ -25,8 +25,10 @@ public partial class Feladatok : ContentPage
 
     private async void BetoltesCsoportok()
     {
+        
         var connection = DBcsatlakozas.CreateConnection();
 
+        
         await connection.CreateTableAsync<Tag>();
         await connection.CreateTableAsync<Csoport>();
 
@@ -39,49 +41,13 @@ public partial class Feladatok : ContentPage
         var csoportok = await connection.Table<Csoport>()
             .Where(c => csoportIDs.Contains(c.Id))
             .ToListAsync();
-
+        foreach (var csoport in csoportok)
+        {
+            CSPTLista.Add(csoport);
+        }
         var csoportNevek = csoportok.Select(c => c.Csoportnev).ToList();
 
         CsoportPicker.ItemsSource = csoportNevek;
-
-
-
-        /*
-        // Ellenõrizzük, hogy létezik-e a Tag tábla
-        await connection.CreateTableAsync<Tag>();
-
-        // Lekérjük az aktuális felhasználó tagságait
-        var tagsagok = await connection.Table<Tag>()
-            .Where(t => t.FHO_id == FHO_id) // Feltételezzük, hogy FHO_id az aktuális felhasználó azonosítója
-            .ToListAsync();
-
-        if (!tagsagok.Any())
-        {
-            // Ha a felhasználó nem tag egyetlen csoportban sem, üres listát állítunk be
-            CsoportPicker.ItemsSource = new List<string>();
-            return;
-        }
-
-        // Lekérjük az összes csoportot
-        var osszesCsoport = await connection.Table<Csoport>().ToListAsync();
-        // Létrehozunk egy listát a megjelenítendõ csoportnevekhez
-        var megjelenoCsoportNevek = new List<string>();
-
-        // Iterálunk az összes csoporton
-        foreach (var csoport in osszesCsoport)
-        {
-            CSPTLista.Add(csoport);
-            // Ellenõrizzük, hogy a csoport azonosítója szerepel-e a felhasználó tagságai között
-            if (tagsagok.Any(tag => tag.CSPT_id == csoport.Id))
-            {
-                megjelenoCsoportNevek.Add(csoport.Csoportnev);
-            }
-        }
-
-        // A megjelenítendõ csoportneveket hozzárendeljük a Picker ItemsSource-jához
-        CsoportPicker.ItemsSource = megjelenoCsoportNevek;
-
-        */
     }
 
     private async void Buttonfooldal_Clicked(object sender, EventArgs e)
@@ -134,6 +100,12 @@ public partial class Feladatok : ContentPage
 
     private async void Keszit_Clicked(object sender, EventArgs e)
     {
+        if (hatarDatePicker.Date < DateTime.Now.Date)
+        {
+            await DisplayAlert("Hiba", "A határidõ nem lehet a mai napnál korábbi.", "OK");
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(CimEntry.Text) || string.IsNullOrWhiteSpace(feladatleiras.Text) || CsoportPicker.SelectedItem == null)
         {
             await DisplayAlert("Hiba", "Minden kötelezõ mezõt ki kell tölteni és ki kell választani egy csoportot!", "OK");
@@ -148,23 +120,61 @@ public partial class Feladatok : ContentPage
             FHO_id = FHO_id,
             CSPT_nev = CsoportPicker.SelectedItem.ToString(),
             Cim = CimEntry.Text,
-            //Hatarido = hatarDatePicker.Date.ToString(),
+            Hatarido = hatarDatePicker.Date.ToString("yyyy-MM-dd"),
             Leiras = feladatleiras.Text,
             Feladat_letrejotte = DateTime.Now.ToString()
         };
 
         await connection.InsertAsync(ujFeladat);
-        //await connection.CreateTableAsync<Felelos>();
-        /*
-        var ujFelelos = new Felelos
-        {
-            FAT_id = ujFeladat.Id,
-            CSPT_id = CSPTLista.Find(x => x.Csoportnev == ujFeladat.CSPT_nev).Id
-        };
+        await connection.CreateTableAsync<Felelos>();
 
-        await connection.InsertAsync(ujFelelos);
-        */
-        await DisplayAlert("Siker", "A feladat sikeresen létrejött!", "OK");
+        if (CSPTLista == null)
+        {
+            //await DisplayAlert("Hiba", "CSPTLista", "OK");
+            return;
+        }
+
+        if ((ujFeladat == null))
+        {
+            //await DisplayAlert("Hiba", "ujFeladat", "OK");
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(ujFeladat.CSPT_nev))
+        {
+            //await DisplayAlert("Hiba", "ujFeladat.CSPT_nev", "OK");
+            return;
+        }
+
+        var talalat = CSPTLista.Find(x => x.Csoportnev == ujFeladat.CSPT_nev);
+        if (talalat == null)
+        {
+            await DisplayAlert("Hiba", "A kiválasztott csoport nem található a listában!", "OK");
+            return;
+        }
+
+        var letezik = await connection.Table<Felelos>()
+    .Where(f => f.FAT_id == ujFeladat.Id && f.CSPT_id == talalat.Id)
+    .FirstOrDefaultAsync();
+
+        if (letezik == null)
+        {
+            var ujFelelos = new Felelos
+            {
+                FAT_id = ujFeladat.Id,
+                CSPT_id = talalat.Id,
+                FeladatNev = ujFeladat.Cim
+            };
+
+            await connection.InsertAsync(ujFelelos);
+        }
+        else
+        {
+           // await DisplayAlert("Figyelem", "Ez a felelõs már hozzá van rendelve a feladathoz.", "OK");
+        }
+        var tempList = await connection.Table<Felelos>().ToListAsync();
+       // await DisplayAlert("Eredmény:", $"Hozzáadott sorok száma: {tempList.Count}", "Wilco!");
+      //  await DisplayAlert("Siker", "A feladat sikeresen létrejött!", "OK");
 
         // Navigáció a Feladataim oldalra
         await Navigation.PushAsync(new Feladataim(FHO_id));

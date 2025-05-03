@@ -71,6 +71,7 @@ public partial class Regisztracio : ContentPage
 
                 // Ellenõrizzük, hogy tényleg bekerült-e az új felhasználó
                 var felhasznalo = connection.Table<Felhasznalo>().FirstOrDefault(x => x.Fnev == ujFelhasznalo.Fnev);
+
                 if (felhasznalo != null)
                 {
                     // Kiírjuk az adatokat, hogy tényleg elmentettük õket
@@ -79,7 +80,7 @@ public partial class Regisztracio : ContentPage
                                          $"Email: {felhasznalo.Email}\n" +
                                          $"Születési dátum: {felhasznalo.Szul_ido.ToShortDateString()}\n" +
                                          $"Telefonszám: {felhasznalo.Tszam}";
-                    DisplayAlert("Sikeres regisztráció", $"A következõ adatokat mentettük el:\n\n{userDetails}", "OK");
+                    //DisplayAlert("Sikeres regisztráció", $"A következõ adatokat mentettük el:\n\n{userDetails}", "OK");
                 }
 
                 // Ha minden rendben van, átirányítjuk a felhasználót a Bejelentkezés oldalra

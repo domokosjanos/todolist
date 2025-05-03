@@ -53,10 +53,13 @@ public partial class Csoportok : ContentPage
             await _connection.CreateTableAsync<Tag>();
             var Tagsagok = await _connection.Table<Tag>().ToListAsync();
             //var RendezettTagsagok = Tagsagok.GroupBy(g => g.CSPT_id);
+
+            /*
             if (Tagsagok == null || !Tagsagok.Any())
             {
                 await DisplayAlert("Hiba", "Üres tábla: Tagok", "OK");
             }
+            */
 
             // Ellenõrizzük, hogy létezik-e a tábla, ha nem, hozzuk létre
             await _connection.CreateTableAsync<Csoport>();

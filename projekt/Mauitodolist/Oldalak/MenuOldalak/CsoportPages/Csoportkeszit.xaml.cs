@@ -69,7 +69,6 @@ public partial class Csoportkeszit : ContentPage
         var connection = DBcsatlakozas.CreateConnection();
         var path = DBcsatlakozas.CreateConnection().DatabasePath;
         //await DisplayAlert("DB útvonal", path, "OK");
-        //await connection.DropTableAsync<Csoport>();
 
         await connection.CreateTableAsync<Csoport>();
         await connection.InsertAsync(ujCsoport);
@@ -81,8 +80,6 @@ public partial class Csoportkeszit : ContentPage
             await DisplayAlert("Hiba", "A csoportot nem sikerült létrehozni.", "OK");
             return;
         }
-
-        //await connection.DropTableAsync<Tag>();
 
         await connection.CreateTableAsync<Tag>();
 
@@ -120,10 +117,11 @@ public partial class Csoportkeszit : ContentPage
 
         await connection.CloseAsync();
 
-        await DisplayAlert("Siker", "A csoport létrehozása sikeres volt.", "OK");
+       // await DisplayAlert("Siker", "A csoport létrehozása sikeres volt.", "OK");
         await Navigation.PushAsync(new Csoportok(FHO_id));
 
     }
+
 
     private void Button_Clicked(object sender, EventArgs e)
     {

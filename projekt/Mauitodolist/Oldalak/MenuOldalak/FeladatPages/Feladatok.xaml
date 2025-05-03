@@ -124,20 +124,19 @@
                 Title="Válassz egy csoportot"
                 TextColor="Black"
             />
-             <!--
+             
             <DatePicker
                 x:Name="hatarDatePicker"
-                Margin="10"
+                Margin="15"
                 BackgroundColor="{StaticResource halvanyszurke}"
                 FontFamily="NexaLight"
-                DateSelected="hatarDatePicker_DateSelected"
                 TextColor="Black"
                 Grid.Row="4"
                 Grid.ColumnSpan="4"
                 WidthRequest="150"
                 HeightRequest="20"
             />
-            -->
+            
 
             <Editor
                 x:Name="feladatleiras"
