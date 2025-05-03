@@ -130,19 +130,19 @@ public partial class Feladatok : ContentPage
 
         if (CSPTLista == null)
         {
-            await DisplayAlert("Hiba", "CSPTLista", "OK");
+            //await DisplayAlert("Hiba", "CSPTLista", "OK");
             return;
         }
 
         if ((ujFeladat == null))
         {
-            await DisplayAlert("Hiba", "ujFeladat", "OK");
+            //await DisplayAlert("Hiba", "ujFeladat", "OK");
             return;
         }
 
         if (string.IsNullOrWhiteSpace(ujFeladat.CSPT_nev))
         {
-            await DisplayAlert("Hiba", "ujFeladat.CSPT_nev", "OK");
+            //await DisplayAlert("Hiba", "ujFeladat.CSPT_nev", "OK");
             return;
         }
 
@@ -170,11 +170,11 @@ public partial class Feladatok : ContentPage
         }
         else
         {
-            await DisplayAlert("Figyelem", "Ez a felelõs már hozzá van rendelve a feladathoz.", "OK");
+           // await DisplayAlert("Figyelem", "Ez a felelõs már hozzá van rendelve a feladathoz.", "OK");
         }
         var tempList = await connection.Table<Felelos>().ToListAsync();
-        await DisplayAlert("Eredmény:", $"Hozzáadott sorok száma: {tempList.Count}", "Wilco!");
-        await DisplayAlert("Siker", "A feladat sikeresen létrejött!", "OK");
+       // await DisplayAlert("Eredmény:", $"Hozzáadott sorok száma: {tempList.Count}", "Wilco!");
+      //  await DisplayAlert("Siker", "A feladat sikeresen létrejött!", "OK");
 
         // Navigáció a Feladataim oldalra
         await Navigation.PushAsync(new Feladataim(FHO_id));

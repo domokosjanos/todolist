@@ -117,7 +117,7 @@ public partial class Csoportkeszit : ContentPage
 
         await connection.CloseAsync();
 
-        await DisplayAlert("Siker", "A csoport létrehozása sikeres volt.", "OK");
+       // await DisplayAlert("Siker", "A csoport létrehozása sikeres volt.", "OK");
         await Navigation.PushAsync(new Csoportok(FHO_id));
 
     }
