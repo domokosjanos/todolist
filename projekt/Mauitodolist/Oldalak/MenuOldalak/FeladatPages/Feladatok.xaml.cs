@@ -100,6 +100,12 @@ public partial class Feladatok : ContentPage
 
     private async void Keszit_Clicked(object sender, EventArgs e)
     {
+        if (hatarDatePicker.Date < DateTime.Now.Date)
+        {
+            await DisplayAlert("Hiba", "A határidõ nem lehet a mai napnál korábbi.", "OK");
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(CimEntry.Text) || string.IsNullOrWhiteSpace(feladatleiras.Text) || CsoportPicker.SelectedItem == null)
         {
             await DisplayAlert("Hiba", "Minden kötelezõ mezõt ki kell tölteni és ki kell választani egy csoportot!", "OK");
@@ -114,7 +120,7 @@ public partial class Feladatok : ContentPage
             FHO_id = FHO_id,
             CSPT_nev = CsoportPicker.SelectedItem.ToString(),
             Cim = CimEntry.Text,
-            //Hatarido = hatarDatePicker.Date.ToString(),
+            Hatarido = hatarDatePicker.Date.ToString("yyyy-MM-dd"),
             Leiras = feladatleiras.Text,
             Feladat_letrejotte = DateTime.Now.ToString()
         };
