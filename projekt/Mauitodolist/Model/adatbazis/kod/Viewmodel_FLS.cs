@@ -17,6 +17,7 @@ namespace MauiToDoList.Model.adatbazis.kod
 
         public Viewmodel_FLS()
         {
+            // Felelösök betöltése az adatbázisból
             Felelosok = new List<Felelos>(Szolgaltatas.GetTableData<Felelos>().ToList());
         }
 

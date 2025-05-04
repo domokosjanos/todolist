@@ -17,6 +17,7 @@ namespace MauiToDoList.Model.adatbazis.kod
 
         public Viewmodel_CSPT()
         {
+            // Csoportok betöltése az adatbázisból
             Csoportok = new List<Csoport>(Szolgaltatas.GetTableData<Csoport>().ToList());
         }
 
