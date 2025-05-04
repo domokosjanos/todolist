@@ -89,6 +89,8 @@ public partial class Feladataim : ContentPage
         // 3. Lekérjük a feladatokat
         var feladatok = await _connection.Table<Feladat>().ToListAsync();
 
+        
+
         // 4. Kiválasztjuk azokat, amik:
         //    - saját maga hozta létre (FHO_id == FHO_id)
         //    - vagy olyan feladathoz tartozik, ahol a felelos táblában CSPT_id = olyan csoport, aminek tagja
@@ -101,6 +103,17 @@ public partial class Feladataim : ContentPage
         var sajatEsCsoportFeladatok = feladatok
             .Where(f => f.FHO_id == FHO_id || relevansFeladatIds.Contains(f.Id))
             .ToList();
+
+        if (sajatEsCsoportFeladatok.Any())
+        {
+            FeladatokListView.ItemsSource = sajatEsCsoportFeladatok;
+            uresFeladatSzoveg.IsVisible = false;
+        }
+        else
+        {
+            FeladatokListView.ItemsSource = null;
+            uresFeladatSzoveg.IsVisible = true;
+        }
 
         // 5. Megjelenítés
         FeladatokListView.ItemsSource = sajatEsCsoportFeladatok;

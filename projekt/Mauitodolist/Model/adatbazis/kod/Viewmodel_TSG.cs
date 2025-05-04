@@ -17,6 +17,7 @@ namespace MauiToDoList.Model.adatbazis.kod
 
         public Viewmodel_TSG()
         {
+            // Tagok betöltése az adatbázisból
             Tagok = new List<Tag>(Szolgaltatas.GetTableData<Tag>().ToList());
         }
 

@@ -17,6 +17,7 @@ namespace MauiToDoList.Model.adatbazis.kod
 
         public Viewmodel_FAT()
         {
+            // Feladatok betöltése az adatbázisból
             Feladatok = new List<Feladat>(Szolgaltatas.GetTableData<Feladat>().ToList());
         }
 

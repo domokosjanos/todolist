@@ -84,11 +84,13 @@
                     TextColor="Gray"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
-                    Margin="20"/>
+                    Margin="20"
+                    />
 
                 <ListView
                     x:Name="FeladatokListView"
                     Margin="10"
+                    
                     BackgroundColor="Transparent"
                     SeparatorVisibility="None">
 
@@ -108,14 +110,14 @@
                                             Clicked="KeszFeladat_Clicked"
                                             IsEnabled="{Binding Allapot, Converter={StaticResource InvertBoolConverter}}"
                                             Style="{StaticResource allapotGombStilus}"
-                                            BackgroundColor="{Binding Allapot, ConverterParameter=Kesz}"
+                                            BackgroundColor="{Binding ConverterParameter=Kesz}"
                                                 TextColor="Black"/>
                                             <Button
                                             Text="Nincs kész"
                                             Clicked="NemKeszFeladat_Clicked"
                                             IsEnabled="{Binding Allapot, Converter={StaticResource BoolConverter}}"
                                             Style="{StaticResource allapotGombStilus}"
-                                            BackgroundColor="{Binding Allapot, ConverterParameter=NemKesz}"
+                                            BackgroundColor="{Binding ConverterParameter=NemKesz}"
                                                 TextColor="Black"/>
                                             <Button
                                             Text="Törlés"
