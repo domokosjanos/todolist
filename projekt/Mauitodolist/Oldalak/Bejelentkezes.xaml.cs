@@ -12,6 +12,8 @@ public partial class Bejelentkezes : ContentPage
     public Bejelentkezes()
     {
         InitializeComponent();
+        emailEntry.Text = "";
+        passwordEntry.Text = "";
     }
     private bool Ellenorzes()
     {

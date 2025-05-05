@@ -47,50 +47,59 @@ public partial class Regisztracio : ContentPage
             DisplayAlert("Hiba", "A kiválasztott dátum nem lehet jövõbeli. Válasszon egy régebbi dátumot!", "OK");
             return; // Ha nem megfelelõ a dátum, kilépünk a regisztrációs folyamatból
         }
-
-        // SQLite kapcsolat létrehozása
-        using (var connection = new SQLiteConnection(DBcsatlakozas.Utvonal, DBcsatlakozas.Flags))
+        //DisplayAlert("Hiba", $"{jelszoentry.Text.Length}", "Ok");
+        if (jelszoentry.Text.Length > 6)
         {
-            connection.CreateTable<Felhasznalo>(); //Felhasznalo táblához csatlakozás
-            if (Ellenorzes())
+            using (var connection = new SQLiteConnection(DBcsatlakozas.Utvonal, DBcsatlakozas.Flags))
             {
-                var ujFelhasznalo = new Felhasznalo
+                connection.CreateTable<Felhasznalo>(); //Felhasznalo táblához csatlakozás
+                if (Ellenorzes())
                 {
-                    Vnev = vezetekneventry.Text,
-                    Knev = keresztneventry.Text,
-                    Hnev = harmadikNevEntry.Text,
-                    Fnev = felhasznaloentry.Text,
-                    Jelszo = encoder.Encode(jelszoentry.Text),
-                    Email = emailentry.Text,
-                    Szul_ido = szuletesDatePicker.Date,
-                    Tszam = Telefon.Text
-                };
+                    var ujFelhasznalo = new Felhasznalo
+                    {
+                        Vnev = vezetekneventry.Text,
+                        Knev = keresztneventry.Text,
+                        Hnev = harmadikNevEntry.Text,
+                        Fnev = felhasznaloentry.Text,
+                        Jelszo = encoder.Encode(jelszoentry.Text),
+                        Email = emailentry.Text,
+                        Szul_ido = szuletesDatePicker.Date,
+                        Tszam = Telefon.Text
+                    };
 
-                connection.Insert(ujFelhasznalo);
-                DisplayAlert("Információ", "Sikeres regisztráció", "OK");
+                    connection.Insert(ujFelhasznalo);
 
-                // Ellenõrizzük, hogy tényleg bekerült-e az új felhasználó
-                var felhasznalo = connection.Table<Felhasznalo>().FirstOrDefault(x => x.Fnev == ujFelhasznalo.Fnev);
 
-                if (felhasznalo != null)
-                {
-                    // Kiírjuk az adatokat, hogy tényleg elmentettük õket
-                    string userDetails = $"Felhasználónév: {felhasznalo.Fnev}\n" +
-                                         $"Név: {felhasznalo.Vnev} {felhasznalo.Knev}\n" +
-                                         $"Email: {felhasznalo.Email}\n" +
-                                         $"Születési dátum: {felhasznalo.Szul_ido.ToShortDateString()}\n" +
-                                         $"Telefonszám: {felhasznalo.Tszam}";
-                    //DisplayAlert("Sikeres regisztráció", $"A következõ adatokat mentettük el:\n\n{userDetails}", "OK");
+                    // Ellenõrizzük, hogy tényleg bekerült-e az új felhasználó
+                    var felhasznalo = connection.Table<Felhasznalo>().FirstOrDefault(x => x.Fnev == ujFelhasznalo.Fnev);
+
+                    if (felhasznalo != null)
+                    {
+                        // Kiírjuk az adatokat, hogy tényleg elmentettük õket
+                        string userDetails = $"Felhasználónév: {felhasznalo.Fnev}\n" +
+                                             $"Név: {felhasznalo.Vnev} {felhasznalo.Knev}\n" +
+                                             $"Email: {felhasznalo.Email}\n" +
+                                             $"Születési dátum: {felhasznalo.Szul_ido.ToShortDateString()}\n" +
+                                             $"Telefonszám: {felhasznalo.Tszam}";
+                        //DisplayAlert("Sikeres regisztráció", $"A következõ adatokat mentettük el:\n\n{userDetails}", "OK");
+                    }
+
+                    // Ha minden rendben van, átirányítjuk a felhasználót a Bejelentkezés oldalra
+                    DisplayAlert("Információ", "Sikeres regisztráció", "OK");
+                    Navigation.PushAsync(new Bejelentkezes());
                 }
-
-                // Ha minden rendben van, átirányítjuk a felhasználót a Bejelentkezés oldalra
-                Navigation.PushAsync(new Bejelentkezes());
-            }
-            else
-            {
-                DisplayAlert("Hiba", $"Ez {Message} már foglalt. Adj meg egy másikat!", "Ok");
+                else
+                {
+                    DisplayAlert("Hiba", $"Ez {Message} már foglalt. Adj meg egy másikat!", "Ok");
+                }
             }
         }
+        else
+        {
+            DisplayAlert("Figyelmeztetés", "A jelszónak legalább 7 karakter hosszúnak kell lennie.", "Ok");
+            return;
+        }
+            
     }
 
 
