@@ -108,7 +108,7 @@ public partial class Feladatok : ContentPage
 
         if (string.IsNullOrWhiteSpace(CimEntry.Text) || string.IsNullOrWhiteSpace(feladatleiras.Text) || CsoportPicker.SelectedItem == null)
         {
-            await DisplayAlert("Hiba", "Minden kötelezõ mezõt ki kell tölteni és ki kell választani egy csoportot!", "OK");
+            await DisplayAlert("Visszajelzés", "Minden kötelezõ mezõt ki kell tölteni és ki kell választani egy csoportot!", "Rendben");
             return;
         }
 

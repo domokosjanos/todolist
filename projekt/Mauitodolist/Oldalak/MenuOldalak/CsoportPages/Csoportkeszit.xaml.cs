@@ -55,7 +55,7 @@ public partial class Csoportkeszit : ContentPage
         // Ellenõrizd, hogy van-e szöveg
         if (string.IsNullOrEmpty(csoportNev))
         {
-            await DisplayAlert("Hiba", "A csoport neve nem lehet üres.", "OK");
+            await DisplayAlert("Figyelmeztetés", "A csoport neve nem lehet üres.", "Rendben");
             return;
         }
 

@@ -141,7 +141,7 @@ public partial class Feladataim : ContentPage
         }
         else
         {
-            await DisplayAlert("Hiba", "Nem módosíthatja ezt a feladatot!", "OK");
+            await DisplayAlert("Figyelmeztetés", "Nem módosíthatod ezt a feladatot!", "OK");
         }
     }
 
@@ -170,7 +170,7 @@ public partial class Feladataim : ContentPage
                 }
                 else
                 {
-                    await DisplayAlert("Hiba", "Nem módosíthatja ezt a feladatot!", "OK");
+                    await DisplayAlert("Figyelmeztetés", "Nem módosíthatod ezt a feladatot!", "OK");
                 }
             }
             finally
@@ -206,7 +206,7 @@ public partial class Feladataim : ContentPage
                 }
                 else
                 {
-                    await DisplayAlert("Hiba", "Nem módosíthatja ezt a feladatot!", "OK");
+                    await DisplayAlert("Figyelmeztetés", "Nem módosíthatod ezt a feladatot!", "OK");
                 }
             }
             finally

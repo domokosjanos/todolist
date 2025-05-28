@@ -84,7 +84,7 @@ public partial class Profilok : ContentPage
     private async void kijelentkezes_Clicked(object sender, EventArgs e)
     {
 
-        bool valasz = await DisplayAlert("Kijelentkezés", "Biztosan ki szeretnél jelentkezni?", "igen", "Nem");
+        bool valasz = await DisplayAlert("Kijelentkezés", "Biztosan ki szeretnél jelentkezni?", "Igen", "Nem");
         if (valasz == true)
         {
             // Távolítsuk el az összes elõzõ oldalt a navigációs verembõl, így nem tudunk visszalépni
